@@ -7,5 +7,11 @@
     "author": "Microsoft",
     "scripts": {
         "start": "node index.js"
+    },
+    "dependencies": {
+        "sequelize": "^4.41.2"
+    },
+    "devDependencies": {
+        "tedious": "^3.0.1"
     }
 }

@@ -4,16 +4,20 @@
   "description": "MegaCasting API ",
   "main": "app.js",
   "scripts": {
-  "start": "node app.js"
+    "start": "node app.js"
   },
   "repository": {
-  "type": "git",
-  "url": ""
+    "type": "git",
+    "url": ""
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-  "url": ""
+    "url": ""
   },
-  "homepage": ""
+  "homepage": "",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
   }
+}

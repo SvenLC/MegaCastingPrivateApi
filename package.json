@@ -1,25 +1,19 @@
 {
-  "name": "nodeapi",
+  "name": "megacastingapi",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "MegaCasting API ",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "start": "node app.js"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SvenLC/NodeAPI.git"
+  "type": "git",
+  "url": ""
   },
-  "author": "svenlc",
+  "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/SvenLC/NodeAPI/issues"
+  "url": ""
   },
-  "homepage": "https://github.com/SvenLC/NodeAPI#readme",
-  "dependencies": {
-    "body-parser": "^1.18.3",
-    "express": "^4.16.4",
-    "joi": "^14.1.0",
-    "mssql": "^4.2.3"
+  "homepage": ""
   }
-}

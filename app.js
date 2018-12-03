@@ -1,21 +1,34 @@
 const http = require('http');
-const port=process.env.PORT || 3000
-var express = require('express');
-var app = express();
+const path = require('path');
 
-app.get("/utilisateur",function(request,response)
-{
-    response.json({"Message":"Retourne les utilisateurs"});
-});
+const bodyParser = require('body-parser');
+const port = process.env.PORT || 3000
 
-app.route('/').get(function(req, res) { 
+const sequelize = require('./util/database');
+const express = require('express');
+const app = express();
+
+const utilisateurRoutes = require('./routes/utilisateur');
+
+app.use(utilisateurRoutes);
+
+app.route('/').get(function (req, res) {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/html');
-    res.end('<h1>API MegaCasting</h1>'); 
-}); 
- 
-app.listen(port, function () {
-    var datetime = new Date();
-    var message = "Server runnning on Port:- " + port + "Started at :- " + datetime;
-    console.log(message);
+    res.end('<h1>API MegaCasting</h1>');
 });
+
+sequelize
+    .sync()
+    .then(
+        app.listen(port, function () {
+            var datetime = new Date();
+            var message = "Server runnning on Port:- " + port + "Started at :- " + datetime;
+            console.log(message);
+        })
+    )
+    .catch(err => {
+            console.log(err);
+        }
+
+);

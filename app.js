@@ -12,7 +12,7 @@ const utilisateurRoutes = require('./routes/utilisateur');
 const prospectRoutes = require('./routes/prospect');
 
 app.use((req,res,next) => {
-    res.setHeader('Acces-Control-Allow-Origin');
+    res.setHeader('Acces-Control-Allow-Origin', '*');
     res.setHeader('Acces-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
     res.setHeader('Acces-Control-Allow-Headers', 'Content-Type, Authorization');
     next();

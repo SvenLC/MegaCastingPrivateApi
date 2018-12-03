@@ -11,6 +11,7 @@ const app = express();
 
 const utilisateurRoutes = require('./routes/utilisateur');
 const prospectRoutes = require('./routes/prospect');
+const defaultRoutes = require('./routes/index');
 
 app.use(bodyParser.json());
 
@@ -24,6 +25,7 @@ app.use((req,res,next) => {
 
 app.use('/utilisateur', utilisateurRoutes);
 app.use('/prospect', prospectRoutes);
+app.use('/', defaultRoutes);
 
 app.use((error, req, res, next) => {
     console.log(error);
@@ -37,11 +39,11 @@ app.use((error, req, res, next) => {
 sequelize
     .sync()
     .then(
-        // app.listen(port, function () {
-        //     var datetime = new Date();
-        //     var message = "Server runnning on Port:- " + port + "Started at :- " + datetime;
-        //     console.log(message);
-        // })
+        app.listen(port, function () {
+            var datetime = new Date();
+            var message = "Server runnning on Port:- " + port + "Started at :- " + datetime;
+            console.log(message);
+        })
     )
     .catch(err => {
             console.log(err);

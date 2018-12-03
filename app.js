@@ -48,3 +48,5 @@ sequelize
         }
 
 );
+
+module.exports = app;

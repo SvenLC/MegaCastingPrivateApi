@@ -6,7 +6,7 @@ const utilisateurController = require('../controllers/utilisateur');
 
 const router = express.Router();
 
-router.get(':utilisateurId', utilisateurController.getUtilisateur);
+router.get('/:utilisateurId', utilisateurController.getUtilisateur);
 
 router.get('/', utilisateurController.getUtilisateurs);
 

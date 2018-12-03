@@ -9,8 +9,11 @@ const express = require('express');
 const app = express();
 
 const utilisateurRoutes = require('./routes/utilisateur');
+const prospectRoutes = require('./routes/prospect');
 
 app.use(utilisateurRoutes);
+app.use(prospectRoutes);
+
 
 app.route('/').get(function (req, res) {
     res.statusCode = 200;

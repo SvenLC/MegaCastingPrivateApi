@@ -6,8 +6,13 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.INTEGER,
 			allowNull: false,
 			primaryKey: true
+		},
+		PRO_NAME: {
+			type: DataTypes.STRING,
+			allowNull: false
 		}
 	}, {
+		timestamps: false,
 		tableName: 'T_E_PROSPECT_PRO'
 	});
 };

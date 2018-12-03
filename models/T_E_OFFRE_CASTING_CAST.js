@@ -50,6 +50,7 @@ module.exports = function(sequelize, DataTypes) {
 			primaryKey: true
 		}
 	}, {
+		timestamps: false,
 		tableName: 'T_E_OFFRE_CASTING_CAST'
 	});
 };

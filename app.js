@@ -1,7 +1,8 @@
 const http = require('http');
 const path = require('path');
-
 const bodyParser = require('body-parser');
+
+
 const port = process.env.PORT || 3000
 
 const sequelize = require('./util/database');
@@ -11,6 +12,8 @@ const app = express();
 const utilisateurRoutes = require('./routes/utilisateur');
 const prospectRoutes = require('./routes/prospect');
 
+app.use(bodyParser.json());
+
 app.use((req,res,next) => {
     res.setHeader('Acces-Control-Allow-Origin', '*');
     res.setHeader('Acces-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
@@ -18,15 +21,18 @@ app.use((req,res,next) => {
     next();
 });
 
-app.use(utilisateurRoutes);
-app.use(prospectRoutes);
 
+app.use('/utilisateur', utilisateurRoutes);
+app.use('/prospect', prospectRoutes);
 
-app.route('/').get(function (req, res) {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/html');
-    res.end('<h1>API MegaCasting</h1>');
+app.use((error, req, res, next) => {
+    console.log(error);
+    const status = error.statusCode || 500;
+    const message = error.message;
+    const data = error.data;
+    res.status(status).json({ message: message, data: data });
 });
+
 
 sequelize
     .sync()

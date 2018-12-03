@@ -6,8 +6,8 @@ const prospectController = require('../controllers/prospect');
 
 const router = express.Router();
 
-router.get('/prospect/:prospectId', prospectController.getProspect);
+router.get('/:prospectId', prospectController.getProspect);
 
-router.get('/prospects', prospectController.getProspects);
+router.get('/', prospectController.getProspects);
 
 module.exports = router;

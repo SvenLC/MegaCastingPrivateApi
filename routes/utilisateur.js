@@ -6,9 +6,9 @@ const utilisateurController = require('../controllers/utilisateur');
 
 const router = express.Router();
 
-router.get('/utilisateur/:utilisateurId', utilisateurController.getUtilisateur);
+router.get(':utilisateurId', utilisateurController.getUtilisateur);
 
-router.get('/utilisateurs', utilisateurController.getUtilisateurs);
+router.get('/', utilisateurController.getUtilisateurs);
 
 module.exports = router;
 

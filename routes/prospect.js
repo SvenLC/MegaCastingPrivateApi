@@ -10,4 +10,11 @@ router.get('/:prospectId', prospectController.getProspect);
 
 router.get('/', prospectController.getProspects);
 
+router.post('/', prospectController.createProspect);
+
+router.delete('/:prospectId', prospectController.deleteProspect);
+
+router.put('/:prospectId', prospectController.updateProspect);
+
+
 module.exports = router;

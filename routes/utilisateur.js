@@ -10,5 +10,11 @@ router.get('/:utilisateurId', utilisateurController.getUtilisateur);
 
 router.get('/', utilisateurController.getUtilisateurs);
 
+router.post('/', utilisateurController.createUtilisateur);
+
+router.delete('/:utilisateurId', utilisateurController.deleteUtilisateur);
+
+router.put('/:utilisateurId', utilisateurController.updateUtilisateur);
+
 module.exports = router;
 

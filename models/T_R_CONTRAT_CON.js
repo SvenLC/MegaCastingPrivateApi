@@ -5,13 +5,15 @@ module.exports = function(sequelize, DataTypes) {
 		CON_ID: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
-			primaryKey: true
+			primaryKey: true,
+			autoIncrement: true
 		},
 		CON_LIBELLE: {
 			type: DataTypes.STRING,
 			allowNull: false
 		}
 	}, {
+		timestamps: false,
 		tableName: 'T_R_CONTRAT_CON'
 	});
 };

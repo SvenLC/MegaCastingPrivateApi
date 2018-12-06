@@ -14,6 +14,7 @@ const contactRoutes = require('./routes/contact');
 const contenuRoutes = require('./routes/contenuEditorial');
 const utilisateurRoutes = require('./routes/utilisateur');
 const prospectRoutes = require('./routes/prospect');
+const contratRoutes = require('./routes/contrat');
 
 const defaultRoutes = require('./routes/index');
 
@@ -32,6 +33,7 @@ app.use('/contact', contactRoutes);
 app.use('/contenu', contenuRoutes);
 app.use('/utilisateur', utilisateurRoutes);
 app.use('/prospect', prospectRoutes);
+app.use('/contrat', contratRoutes )
 
 app.use('/', defaultRoutes);
 

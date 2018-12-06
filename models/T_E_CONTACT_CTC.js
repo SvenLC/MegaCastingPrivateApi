@@ -5,7 +5,8 @@ module.exports = function(sequelize, DataTypes) {
 		CTC_ID: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
-			primaryKey: true
+			primaryKey: true,
+			autoIncrement: true
 		},
 		CTC_DESCRIPTION: {
 			type: DataTypes.STRING,
@@ -33,6 +34,7 @@ module.exports = function(sequelize, DataTypes) {
 			primaryKey: true
 		}
 	}, {
+		timestamps: false,
 		tableName: 'T_E_CONTACT_CTC'
 	});
 };

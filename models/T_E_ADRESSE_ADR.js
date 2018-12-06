@@ -5,7 +5,8 @@ module.exports = function(sequelize, DataTypes) {
 		ADR_ID: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
-			primaryKey: true
+			primaryKey: true,
+			autoIncrement: true
 		},
 		ADR_NUM_VOIE: {
 			type: DataTypes.STRING,
@@ -20,6 +21,7 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false
 		}
 	}, {
+		timestamps: false,
 		tableName: 'T_E_ADRESSE_ADR'
 	});
 };

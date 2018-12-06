@@ -9,9 +9,13 @@ const sequelize = require('./util/database');
 const express = require('express');
 const app = express();
 
+const adresseRoutes = require('./routes/adresse');
+const contactRoutes = require('./routes/contact');
 const utilisateurRoutes = require('./routes/utilisateur');
 const prospectRoutes = require('./routes/prospect');
+
 const defaultRoutes = require('./routes/index');
+
 
 app.use(bodyParser.json());
 
@@ -22,9 +26,11 @@ app.use((req,res,next) => {
     next();
 });
 
-
+app.use('/adresse', adresseRoutes);
+app.use('/contact', contactRoutes);
 app.use('/utilisateur', utilisateurRoutes);
 app.use('/prospect', prospectRoutes);
+
 app.use('/', defaultRoutes);
 
 app.use((error, req, res, next) => {

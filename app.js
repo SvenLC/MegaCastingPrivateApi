@@ -11,6 +11,7 @@ const app = express();
 
 const adresseRoutes = require('./routes/adresse');
 const contactRoutes = require('./routes/contact');
+const contenuRoutes = require('./routes/contenuEditorial');
 const utilisateurRoutes = require('./routes/utilisateur');
 const prospectRoutes = require('./routes/prospect');
 
@@ -28,6 +29,7 @@ app.use((req,res,next) => {
 
 app.use('/adresse', adresseRoutes);
 app.use('/contact', contactRoutes);
+app.use('/contenu', contenuRoutes);
 app.use('/utilisateur', utilisateurRoutes);
 app.use('/prospect', prospectRoutes);
 

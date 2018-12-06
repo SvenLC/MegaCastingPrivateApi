@@ -5,7 +5,8 @@ module.exports = function(sequelize, DataTypes) {
 		EDI_ID: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
-			primaryKey: true
+			primaryKey: true,
+			autoIncrement: true
 		},
 		EDI_DESCRIPTION: {
 			type: DataTypes.STRING,
@@ -21,6 +22,7 @@ module.exports = function(sequelize, DataTypes) {
 			primaryKey: true
 		}
 	}, {
+		timestamps: false,
 		tableName: 'T_E_CONTENU_EDITORIAL_EDI'
 	});
 };

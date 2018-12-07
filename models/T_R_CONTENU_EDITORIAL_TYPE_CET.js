@@ -5,13 +5,15 @@ module.exports = function(sequelize, DataTypes) {
 		CET_ID: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
-			primaryKey: true
+			primaryKey: true,
+			autoIncrement: true
 		},
 		CET_LIBELLE: {
 			type: DataTypes.STRING,
 			allowNull: false
 		}
 	}, {
+		timestamps: false,
 		tableName: 'T_R_CONTENU_EDITORIAL_TYPE_CET'
 	});
 };

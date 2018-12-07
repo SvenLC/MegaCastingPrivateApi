@@ -17,6 +17,7 @@ const prospectRoutes = require('./routes/prospect');
 const typeContenuRoutes = require('./routes/contenuEditorialType');
 const domaineMetierRoutes = require('./routes/domaineMetier');
 const localisationRoutes = require('./routes/localisation');
+const metierRoutes = require('./routes/metier');
 const contratRoutes = require('./routes/contrat');
 
 const defaultRoutes = require('./routes/index');
@@ -36,6 +37,7 @@ app.use('/contact', contactRoutes);
 app.use('/typeContenu', typeContenuRoutes);
 app.use('/domaineMetier', domaineMetierRoutes);
 app.use('/localisation', localisationRoutes)
+app.use('/metier', metierRoutes);
 app.use('/contenu', contenuRoutes);
 app.use('/utilisateur', utilisateurRoutes);
 app.use('/prospect', prospectRoutes);

@@ -5,7 +5,8 @@ module.exports = function(sequelize, DataTypes) {
 		MET_ID: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
-			primaryKey: true
+			primaryKey: true,
+			autoIncrement: true
 		},
 		MET_LIBELLE: {
 			type: DataTypes.STRING,
@@ -17,6 +18,7 @@ module.exports = function(sequelize, DataTypes) {
 			primaryKey: true
 		}
 	}, {
+		timestamps: false,
 		tableName: 'T_R_METIER_MET'
 	});
 };

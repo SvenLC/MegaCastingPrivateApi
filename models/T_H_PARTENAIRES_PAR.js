@@ -20,6 +20,7 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false
 		}
 	}, {
+		timestamps: false,
 		tableName: 'T_H_PARTENAIRES_PAR'
 	});
 };

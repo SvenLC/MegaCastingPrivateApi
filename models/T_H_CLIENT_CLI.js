@@ -5,7 +5,11 @@ module.exports = function(sequelize, DataTypes) {
 		PRO_ID: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
-			primaryKey: true,			
+			primaryKey: true,
+			references: {
+				model: 'T_E_PROSPECT_PRO',
+				key: 'PRO_ID'
+			}			
 		},
 		CLI_SIRET: {
 			type: DataTypes.INTEGER,

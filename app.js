@@ -12,13 +12,15 @@ const app = express();
 const adresseRoutes = require('./routes/adresse');
 const contactRoutes = require('./routes/contact');
 const contenuRoutes = require('./routes/contenuEditorial');
-const utilisateurRoutes = require('./routes/utilisateur');
 const prospectRoutes = require('./routes/prospect');
+const clientRoutes = require('./routes/client');
 const typeContenuRoutes = require('./routes/contenuEditorialType');
 const domaineMetierRoutes = require('./routes/domaineMetier');
 const localisationRoutes = require('./routes/localisation');
 const metierRoutes = require('./routes/metier');
+const statutJuridiqueRoutes = require('./routes/statutJuridique');
 const contratRoutes = require('./routes/contrat');
+const utilisateurRoutes = require('./routes/utilisateur');
 
 const defaultRoutes = require('./routes/index');
 
@@ -34,14 +36,18 @@ app.use((req,res,next) => {
 
 app.use('/adresse', adresseRoutes);
 app.use('/contact', contactRoutes);
+app.use('/contenu', contenuRoutes);
+app.use('/prospect', prospectRoutes);
+app.use('/client', clientRoutes);
 app.use('/typeContenu', typeContenuRoutes);
 app.use('/domaineMetier', domaineMetierRoutes);
 app.use('/localisation', localisationRoutes)
 app.use('/metier', metierRoutes);
-app.use('/contenu', contenuRoutes);
+app.use('/statutJuridique', statutJuridiqueRoutes);
+
 app.use('/utilisateur', utilisateurRoutes);
-app.use('/prospect', prospectRoutes);
-app.use('/contrat', contratRoutes )
+
+app.use('/contrat', contratRoutes);
 
 app.use('/', defaultRoutes);
 

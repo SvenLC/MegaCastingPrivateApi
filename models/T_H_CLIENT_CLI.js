@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
 		PRO_ID: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
-			primaryKey: true
+			primaryKey: true,			
 		},
 		CLI_SIRET: {
 			type: DataTypes.INTEGER,
@@ -26,6 +26,7 @@ module.exports = function(sequelize, DataTypes) {
 			primaryKey: true
 		}
 	}, {
+		timestamps: false,
 		tableName: 'T_H_CLIENT_CLI'
 	});
 };

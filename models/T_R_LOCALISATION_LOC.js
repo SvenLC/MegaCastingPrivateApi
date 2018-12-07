@@ -5,13 +5,15 @@ module.exports = function(sequelize, DataTypes) {
 		LOC_ID: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
-			primaryKey: true
+			primaryKey: true,
+			autoIncrement: true
 		},
 		LOC_LIBELLE: {
 			type: DataTypes.STRING,
 			allowNull: false
 		}
 	}, {
+		timestamps: false,
 		tableName: 'T_R_LOCALISATION_LOC'
 	});
 };

@@ -71,7 +71,7 @@ exports.deleteDomaineMetier = (req, res, next) => {
             }
             return domaineMetier.destroy();
         }).then(result => {            
-            res.status(200).json({message: 'Type de contenu supprimé'});
+            res.status(200).json({message: 'Domaine de métier supprimé'});
             
         })
         .catch(err => {

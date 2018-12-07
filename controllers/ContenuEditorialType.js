@@ -7,7 +7,7 @@ const ContenuType = sequelize.import('../models/T_R_CONTENU_EDITORIAL_TYPE_CET')
 exports.getContenuTypes= (req, res, next) => {
     ContenuType.findAll()
     .then(contenuTypes => {
-        res.status(200).json({'Type de contenu': contenuTypes});
+        res.status(200).json({ContenuType: contenuTypes});
     })
     .catch(err => {
         if (!err.statusCode) {
@@ -20,13 +20,13 @@ exports.getContenuTypes= (req, res, next) => {
 exports.getContenuType = (req, res, next) => {
     const ContenuTypeId = req.params.contenuTypeId;
     ContenuType.findByPk(ContenuTypeId)
-    .then(o => {
-        if (!o) {
-            const error = new Error('type de contenu inexistante !');
+    .then(contenuType => {
+        if (!contenuType) {
+            const error = new Error({message :'type de contenu inexistante !'});
             error.statusCode = 404;
             throw error;
         }
-            res.status(200).json({'Type de contenu' : ContenuType });
+            res.status(200).json({ContenuType : contenuType });
         })
     .catch(err => {
         if (!err.statusCode) {
@@ -63,9 +63,9 @@ exports.createContenuType = (req, res, next) => {
 exports.deleteContenuType = (req, res, next) => {
     const ContenuTypeId = req.params.contenuTypeId;
     ContenuType.findByPk(ContenuTypeId)
-        .then(o => {
-            if (!o) {
-                const error = new Error('o inexistant !');
+        .then(contenuType => {
+            if (!contenuType) {
+                const error = new Error({message: 'Type de contenu inexistant !'});
                 error.statusCode = 404;
                 throw error;
             }
@@ -89,7 +89,7 @@ exports.updateContenuType = (req, res, next) => {
     ContenuType.findByPk(contenuTypeId)
     .then(contenuType => {
         if (!contenuType) {
-            const error = new Error('Type de contenu inexistant !');
+            const error = new Error({message: 'Type de contenu inexistant !'});
             error.statusCode = 404;
             throw error;
         }

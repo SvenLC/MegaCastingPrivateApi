@@ -7,12 +7,14 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false,
 			primaryKey: true,
 			autoIncrement: true
+			
 		},
 		DOM_LIBELLE: {
 			type: DataTypes.STRING,
 			allowNull: false
 		}
 	}, {
+		timestamps: false,
 		tableName: 'T_R_DOMAINE_METIER_DOM'
 	});
 };

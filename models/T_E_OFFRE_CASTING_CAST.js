@@ -5,7 +5,8 @@ module.exports = function(sequelize, DataTypes) {
 		CAST_ID: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
-			primaryKey: true
+			primaryKey: true,
+			autoIncrement: true
 		},
 		CAST_INTITULE: {
 			type: DataTypes.STRING,

@@ -4,6 +4,11 @@ const sequelize = require('../util/database');
 
 const Offre = sequelize.import('../models/T_E_OFFRE_CASTING_CAST');
 
+// Override timezone formatting for MSSQL
+Sequelize.DATE.prototype._stringify = function _stringify(date, options) {
+    return this._applyTimezone(date, options).format('YYYY-MM-DD HH:mm:ss.SSS');
+  };
+
 exports.getOffres= (req, res, next) => {
     Offre.findAll()
     .then(offres => {
@@ -22,11 +27,14 @@ exports.getOffre = (req, res, next) => {
     Offre.findByPk(offreId)
     .then(offre => {
         if (!offre) {
-            const error = new Error({message: 'Offre inexistante !'});
+            const error = new Error('Offre inexistante !');
             error.statusCode = 404;
             throw error;
         }
-            res.status(200).json({offre : offre });
+            res.status(200).json({
+                message: 'Offre de castinf trouvé',
+                offre : offre 
+            });
         })
     .catch(err => {
         if (!err.statusCode) {
@@ -39,10 +47,28 @@ exports.getOffre = (req, res, next) => {
 
 exports.createOffre = (req, res, next) => {
     const libelle = req.body.LOC_LIBELLE;
+    const intitule = req.body.CAST_INTITULE;
+    const reference = req.body.CAST_REFERENCE;
+    const dateDebutPublication = req.body.CAST_DATE_DEBUT_PUBLICATION;
+    const dureeDiffusion = req.body.CAST_DUREE_DIFFUSION;
+    const dateDebutContrat = req.body.CAST_DATE_DEBUT_CONTRAT;
+    const nombrePostes = req.body.CAST_NBR_POSTE;
+    const descriptionPoste = req.body.CAST_DESCRIPTION_POSTE;
+    const descriptionProfil = req.body.CAST_DESCRIPTION_PROFIL;
+    const prospectId = req.body.PRO_ID;
+    const metierId = req.body.MET_ID;
 
-    Offre.create({
-        LOC_LIBELLE: libelle
-
+    Offre.create({        
+        CAST_INTITULE: intitule,		
+		CAST_REFERENCE: reference,		
+		CAST_DATE_DEBUT_PUBLICATION: dateDebutPublication,		
+		CAST_DUREE_DIFFUSION: dureeDiffusion,		
+		CAST_DATE_DEBUT_CONTRAT: dateDebutContrat,	
+		CAST_NBR_POSTE: nombrePostes,		
+		CAST_DESCRIPTION_POSTE: descriptionPoste,		
+		CAST_DESCRIPTION_PROFIL: descriptionProfil,		
+		PRO_ID: prospectId,		
+		MET_ID: metierId
     })
     .then(offre => {
         res.status(201).json({message: 'Offre créee', Offre: offre})        
@@ -87,7 +113,7 @@ exports.updateOffre = (req, res, next) => {
     Offre.findByPk(offreId)
     .then(offre => {
         if (!offre) {
-            const error = new Error({message: 'Localisaton inexistante !'});
+            const error = new Error({message: 'Offre inexistante !'});
             error.statusCode = 404;
             throw error;
         }

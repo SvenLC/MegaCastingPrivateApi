@@ -19,6 +19,7 @@ const typeContenuRoutes = require('./routes/contenuEditorialType');
 const domaineMetierRoutes = require('./routes/domaineMetier');
 const localisationRoutes = require('./routes/localisation');
 const metierRoutes = require('./routes/metier');
+const offreRoutes = require('./routes/offreCasting');
 const statutJuridiqueRoutes = require('./routes/statutJuridique');
 const contratRoutes = require('./routes/contrat');
 const utilisateurRoutes = require('./routes/utilisateur');
@@ -45,6 +46,7 @@ app.use('/typeContenu', typeContenuRoutes);
 app.use('/domaineMetier', domaineMetierRoutes);
 app.use('/localisation', localisationRoutes)
 app.use('/metier', metierRoutes);
+app.use('/offreCasting', offreRoutes);
 app.use('/statutJuridique', statutJuridiqueRoutes);
 
 app.use('/utilisateur', utilisateurRoutes);

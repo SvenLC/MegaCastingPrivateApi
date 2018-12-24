@@ -60,14 +60,13 @@ exports.createClient = (req, res, next) => {
         }
     })
     Client.findByPk(proId)
-        .then(client => {
-            if(client) {
-                const error = new Error ('Un client correspond déjà à cette Id');
-                error.statusCode = 400;
-                throw error;
-            }        
-        }) 
-    
+    .then(client => {
+        if(client) {
+            const error = new Error ('Un client correspond déjà à cette Id');
+            error.statusCode = 400;
+            throw error;
+        }        
+    })    
     Client.create({
         PRO_ID: proId,
         CLI_SIRET: siret,

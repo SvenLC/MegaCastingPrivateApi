@@ -22,7 +22,7 @@ exports.getLocalisation = (req, res, next) => {
     Localisation.findByPk(localisationId)
     .then(localisation => {
         if (!localisation) {
-            const error = new Error({message: 'Domaine métier inexistant !'});
+            const error = new Error({message: 'Localisation inexistante !'});
             error.statusCode = 404;
             throw error;
         }

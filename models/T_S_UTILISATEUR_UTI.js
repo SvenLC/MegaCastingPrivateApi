@@ -26,7 +26,8 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		UTI_ADMINISTRATEUR: {
 			type: DataTypes.BOOLEAN,
-			allowNull: false
+			allowNull: false,
+			default: false
 		}
 	}, {
 		timestamps: false,

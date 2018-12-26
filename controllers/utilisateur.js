@@ -52,7 +52,6 @@ exports.createUtilisateur = (req, res, next) => {
         UTI_ADMINISTRATEUR: admin
     })
     .then(result => {
-        // console.log(result);
         res.status(201).json({
             message: 'Utilisateur crée',
             nom: nom,

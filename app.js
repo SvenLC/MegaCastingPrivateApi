@@ -10,6 +10,7 @@ const express = require('express');
 const app = express();
 
 const authRoutes = require('./routes/auth');
+const isAuth = require('./middleware/isAuth');
 const adresseRoutes = require('./routes/adresse');
 const contactRoutes = require('./routes/contact');
 const contenuRoutes = require('./routes/contenuEditorial');
@@ -41,7 +42,7 @@ app.use('/adresse', adresseRoutes);
 app.use('/contact', contactRoutes);
 app.use('/contenu', contenuRoutes);
 app.use('/prospect', prospectRoutes);
-app.use('/client', clientRoutes);
+app.use('/client',isAuth, clientRoutes);
 app.use('/partenaire', partenaireRoutes);
 app.use('/typeContenu', typeContenuRoutes);
 app.use('/domaineMetier', domaineMetierRoutes);

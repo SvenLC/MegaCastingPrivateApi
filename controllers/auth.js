@@ -20,17 +20,20 @@ exports.signup = (req, res, next) => {
     const prenom = req.body.UTI_PRENOM;
     const login = req.body.UTI_LOGIN;
     const mdp = req.body.UTI_MDP;
+    const admin = req.body.UTI_ADMINISTRATEUR;
+    
     bcrypt.hash(mdp, 12)
     .then(hashedPw => {
         Utilisateur.create({
             UTI_NOM: nom,
             UTI_PRENOM: prenom,
             UTI_LOGIN: login,
-            UTI_MDP: hashedPw            
+            UTI_MDP: hashedPw,     
+            UTI_ADMINISTRATEUR: admin     
         });
     })
     .then(result => {
-        res.status(201).json({message: 'Utilisateur crée', UTI_ID: result.UTI_ID});
+        res.status(201).json({message: 'Utilisateur crée'});
     })
     .catch(err => {
         if(!err.statusCode) {
@@ -62,3 +65,4 @@ exports.login = (req, res, next) => {
 
     });
 };
+

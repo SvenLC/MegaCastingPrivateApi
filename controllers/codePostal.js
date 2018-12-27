@@ -2,7 +2,7 @@ const sequelize = require('../util/database');
 
 const CodePostal = sequelize.import('../models/T_X_CODE_POSTAL_CPT');
 
-exports.getCodePostals= (req, res, next) => {
+exports.getCodePostals = (req, res, next) => {
     CodePostal.findAll()
         .then(codePostals => {
             res.status(200).json({
@@ -18,9 +18,9 @@ exports.getCodePostals= (req, res, next) => {
         });
 }
 
-exports.getCodePostal= (req, res, next) => {
+exports.getCodePostal = (req, res, next) => {
     const commune = req.params.commune;
-    CodePostal.findAll({where: {CPT_COMMUNE: commune}})
+    CodePostal.findAll({ where: { CPT_COMMUNE: commune } })
         .then(codePostals => {
             if (!codePostals) {
                 const error = new Error('Commune inexistante !');

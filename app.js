@@ -2,7 +2,7 @@ const http = require('http');
 const path = require('path');
 const bodyParser = require('body-parser');
 
-const port = process.env.PORT || 3001
+const port = process.env.PORT || 3000
 
 
 const sequelize = require('./util/database');

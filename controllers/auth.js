@@ -33,7 +33,13 @@ exports.signup = (req, res, next) => {
                 UTI_ADMINISTRATEUR: admin
             })
                 .then(result => {
-                    res.status(201).json({ message: 'Utilisateur crée', result });
+                    res.status(201).json({
+                        message: 'Utilisateur crée',
+                        id: result.UTI_ID,
+                        nom: nom,
+                        prenom: prenom,
+                        login: login
+                    });
                 });
         })
         .catch(err => {
@@ -49,7 +55,7 @@ exports.login = (req, res, next) => {
     const password = req.body.UTI_MDP;
     let loadedUser;
 
-    User.findOne({ where: {UTI_LOGIN: login} })
+    User.findOne({ where: { UTI_LOGIN: login } })
         .then(user => {
             console.log(user.UTI_MDP);
             if (!user) {
@@ -61,7 +67,7 @@ exports.login = (req, res, next) => {
             return bcrypt.compare(password, user.UTI_MDP);
         })
         .then(isEqual => {
-            if(!isEqual) {
+            if (!isEqual) {
                 const error = new Error('Mot de passe incorrect');
                 error.statusCode = 401;
                 throw error;
@@ -70,9 +76,9 @@ exports.login = (req, res, next) => {
                 login: loadedUser.UTI_LOGIN,
                 id: loadedUser.UTI_ID
             }, 'somesupersecret',
-            { expiresIn: '1h'}
+                { expiresIn: '1h' }
             );
-            res.status(200).json({token: token, userId: loadedUser.UTI_ID.toString() });
+            res.status(200).json({ token: token, userId: loadedUser.UTI_ID.toString() });
         })
         .catch(err => {
             if (!err.statusCode) {

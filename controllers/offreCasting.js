@@ -60,21 +60,21 @@ exports.createOffre = (req, res, next) => {
     const metierId = req.body.MET_ID;
 
     Offre.create({
-            CAST_INTITULE: intitule,
-            CAST_REFERENCE: reference,
-            CAST_DATE_DEBUT_PUBLICATION: dateDebutPublication,
-            CAST_DUREE_DIFFUSION: dureeDiffusion,
-            CAST_DATE_DEBUT_CONTRAT: dateDebutContrat,
-            CAST_NBR_POSTE: nombrePostes,
-            CAST_DESCRIPTION_POSTE: descriptionPoste,
-            CAST_DESCRIPTION_PROFIL: descriptionProfil,
-            PRO_ID: prospectId,
-            MET_ID: metierId
-        })
+        CAST_INTITULE: intitule,
+        CAST_REFERENCE: reference,
+        CAST_DATE_DEBUT_PUBLICATION: dateDebutPublication,
+        CAST_DUREE_DIFFUSION: dureeDiffusion,
+        CAST_DATE_DEBUT_CONTRAT: dateDebutContrat,
+        CAST_NBR_POSTE: nombrePostes,
+        CAST_DESCRIPTION_POSTE: descriptionPoste,
+        CAST_DESCRIPTION_PROFIL: descriptionProfil,
+        PRO_ID: prospectId,
+        MET_ID: metierId
+    })
         .then(offre => {
             res.status(201).json({
                 message: 'Offre créee',
-                Offre: offre
+                offre: offre
             })
         })
         .catch(err => {

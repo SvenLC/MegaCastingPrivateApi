@@ -1,5 +1,3 @@
-const Sequelize = require('sequelize');
-
 const sequelize = require('../util/database');
 
 const Prospect = sequelize.import('../models/T_E_PROSPECT_PRO');
@@ -47,12 +45,12 @@ exports.createProspect = (req, res, next) => {
     const nom = req.body.PRO_NAME;
 
     Prospect.create({
-            PRO_NAME: nom
-        })
+        PRO_NAME: nom
+    })
         .then(result => {
             res.status(201).json({
                 message: 'Prospect crée',
-                nom: nom
+                prospect: result
             })
         })
         .catch(err => {

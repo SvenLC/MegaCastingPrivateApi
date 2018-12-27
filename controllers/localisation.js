@@ -1,5 +1,3 @@
-const Sequelize = require('sequelize');
-
 const sequelize = require('../util/database');
 
 const Localisation = sequelize.import('../models/T_R_LOCALISATION_LOC');
@@ -47,13 +45,13 @@ exports.createLocalisation = (req, res, next) => {
     const libelle = req.body.LOC_LIBELLE;
 
     Localisation.create({
-            LOC_LIBELLE: libelle
+        LOC_LIBELLE: libelle
 
-        })
+    })
         .then(localisation => {
             res.status(201).json({
                 message: 'Localisation créee',
-                Localisation: localisation
+                localisation: localisation
             })
         })
         .catch(err => {

@@ -48,9 +48,10 @@ exports.createContenu = (req, res, next) => {
         CET_ID: cetId
 
     })
-    .then(result => {
+    .then(contenu => {
         res.status(201).json({
-            message: 'Contenu créee'                                 
+            message: 'Contenu créee',
+            contenu: contenu                                 
         })        
       })
     .catch(err => {

@@ -1,5 +1,3 @@
-const Sequelize = require('sequelize');
-
 const sequelize = require('../util/database');
 
 const Client = sequelize.import('../models/T_H_CLIENT_CLI');
@@ -52,46 +50,46 @@ exports.createClient = (req, res, next) => {
     const adrId = req.body.ADR_ID;
 
     Prospect.findByPk(proId)
-    .then(prospect => {
-        if(!prospect) {
-            const error = new Error ('Aucun prospect ne correspond');
-            error.statusCode = 404;
-            throw error;
-        }
-    })
+        .then(prospect => {
+            if (!prospect) {
+                const error = new Error('Aucun prospect ne correspond');
+                error.statusCode = 404;
+                throw error;
+            }
+        })
     Client.findByPk(proId)
-    .then(client => {
-        if(client) {
-            const error = new Error ('Un client correspond déjà à cette Id');
-            error.statusCode = 400;
-            throw error;
-        }        
-    })    
+        .then(client => {
+            if (client) {
+                const error = new Error('Un client correspond déjà à cette Id');
+                error.statusCode = 400;
+                throw error;
+            }
+        })
     Client.create({
         PRO_ID: proId,
         CLI_SIRET: siret,
         CLI_RNA: rna,
         JUR_ID: jurId,
         ADR_ID: adrId
-         
+
     })
-    .then(client => {
-        res.status(201).json({
-            message: 'Client crée',
-            client: client
+        .then(client => {
+            res.status(201).json({
+                message: 'Client crée',
+                client: client
+            })
         })
-    })
-    .catch(err => {
-        if (!err.statusCode) {
-            err.statusCode = 500;
-        }
-        next(err);
-        console.log('Failed to create');
-    });
+        .catch(err => {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
+            console.log('Failed to create');
+        });
 
-    
 
-    
+
+
 }
 
 

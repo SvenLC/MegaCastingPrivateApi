@@ -1,40 +1,38 @@
-const Sequelize = require('sequelize');
-
 const sequelize = require('../util/database');
 
 const Metier = sequelize.import('../models/T_R_METIER_MET');
 
-exports.getMetiers= (req, res, next) => {
+exports.getMetiers = (req, res, next) => {
     Metier.findAll()
-    .then(metiers => {
-        res.status(200).json({metier: metiers});
-    })
-    .catch(err => {
-        if (!err.statusCode) {
-            err.statusCode = 500;
-        }
-        next(err);
-    });
+        .then(metiers => {
+            res.status(200).json({ metier: metiers });
+        })
+        .catch(err => {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
+        });
 }
 
 exports.getMetier = (req, res, next) => {
     const metierId = req.params.metierId;
     Metier.findByPk(metierId)
-    .then(metier => {
-        if (!metier) {
-            const error = new Error({message: 'Métier inexistant !'});
-            error.statusCode = 404;
-            throw error;
-        }
-            res.status(200).json({Metier : metier });
+        .then(metier => {
+            if (!metier) {
+                const error = new Error({ message: 'Métier inexistant !' });
+                error.statusCode = 404;
+                throw error;
+            }
+            res.status(200).json({ Metier: metier });
         })
-    .catch(err => {
-        if (!err.statusCode) {
-            err.statusCode = 500;
-        }
-        next(err);
-    }); 
- 
+        .catch(err => {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
+        });
+
 };
 
 exports.createMetier = (req, res, next) => {
@@ -46,16 +44,19 @@ exports.createMetier = (req, res, next) => {
         DOM_ID: domId
 
     })
-    .then(metier => {
-        res.status(201).json({message: 'Métier créee', metier: metier})        
-      })
-      .catch(err => {
-        if (!err.statusCode) {
-            err.statusCode = 500;
-        }
-        next(err);
-        console.log('Failed to create');
-      });
+        .then(metier => {
+            res.status(201).json({
+                message: 'Métier créee',
+                metier: metier
+            })
+        })
+        .catch(err => {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
+            console.log('Failed to create');
+        });
 }
 
 
@@ -65,14 +66,14 @@ exports.deleteMetier = (req, res, next) => {
     Metier.findByPk(metierId)
         .then(metier => {
             if (!metier) {
-                const error = new Error({message: 'Métier inexistant !'});
+                const error = new Error({ message: 'Métier inexistant !' });
                 error.statusCode = 404;
                 throw error;
             }
             return metier.destroy();
-        }).then(metier => {            
-            res.status(200).json({message: 'Métier supprimé', metier: metier});
-            
+        }).then(metier => {
+            res.status(200).json({ message: 'Métier supprimé', metier: metier });
+
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -84,27 +85,27 @@ exports.deleteMetier = (req, res, next) => {
 
 exports.updateMetier = (req, res, next) => {
     const metierId = req.params.metierId;
-    const libelle = req.body.MET_LIBELLE;   
+    const libelle = req.body.MET_LIBELLE;
 
     Metier.findByPk(metierId)
-    .then(metier => {
-        if (!metier) {
-            const error = new Error({message: 'Métier inexistant !'});
-            error.statusCode = 404;
-            throw error;
-        }
+        .then(metier => {
+            if (!metier) {
+                const error = new Error({ message: 'Métier inexistant !' });
+                error.statusCode = 404;
+                throw error;
+            }
 
-        metier.MET_LIBELLE = libelle;
-        return metier.save();     
-    }).then(metier => {            
-        res.status(200).json({message: 'Métier modifié', metier: metier});
-        
-    })
-    .catch(err => {
-        if (!err.statusCode) {
-            err.statusCode = 500;
-        }
-        next(err);
-    });
+            metier.MET_LIBELLE = libelle;
+            return metier.save();
+        }).then(metier => {
+            res.status(200).json({ message: 'Métier modifié', metier: metier });
+
+        })
+        .catch(err => {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
+        });
 }
 

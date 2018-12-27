@@ -18,8 +18,6 @@
   "homepage": "",
   "dependencies": {
     "@std/esm": "^0.26.0",
-    "bcrypt": "^3.0.3",
-    "bcrypt-nodejs": "0.0.3",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",

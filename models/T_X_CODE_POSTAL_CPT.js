@@ -16,6 +16,7 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false
 		}
 	}, {
+		timestamps: false,
 		tableName: 'T_X_CODE_POSTAL_CPT'
 	});
 };

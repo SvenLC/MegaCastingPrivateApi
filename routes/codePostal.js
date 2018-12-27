@@ -5,7 +5,7 @@ const codePostalController = require('../controllers/codePostal');
 const router = express.Router();
 
 router.get('/', codePostalController.getCodePostals);
-router.get('/:codePostalId', codePostalController.getCodePostal);
+router.get('/commune/:commune', codePostalController.getCodePostal);
 
 
 module.exports = router;

@@ -2,8 +2,8 @@ const http = require('http');
 const path = require('path');
 const bodyParser = require('body-parser');
 
+const port = process.env.PORT || 3001
 
-const port = process.env.PORT || 3000
 
 const sequelize = require('./util/database');
 const express = require('express');
@@ -43,7 +43,7 @@ app.use('/adresse', adresseRoutes);
 app.use('/contact', contactRoutes);
 app.use('/contenu', contenuRoutes);
 app.use('/prospect', prospectRoutes);
-app.use('/client',isAuth, clientRoutes);
+app.use('/client', clientRoutes);
 app.use('/codePostal', codePostalRoutes);
 app.use('/partenaire', partenaireRoutes);
 app.use('/typeContenu', typeContenuRoutes);

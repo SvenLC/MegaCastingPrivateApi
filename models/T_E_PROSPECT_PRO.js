@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		PRO_NAME: {
 			type: DataTypes.STRING,
-			allowNull: false
+			allowNull: true
 		}
 	}, {
 		timestamps: false,

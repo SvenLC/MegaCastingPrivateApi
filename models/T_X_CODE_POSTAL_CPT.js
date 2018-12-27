@@ -2,18 +2,22 @@
 
 module.exports = function(sequelize, DataTypes) {
 	return sequelize.define('T_X_CODE_POSTAL_CPT', {
-		CPT_ID: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
-			primaryKey: true
-		},
-		CPT_CODE_POSTAL: {
-			type: DataTypes.CHAR,
-			allowNull: false
-		},
-		CPT_VILLE: {
+		CPT_COMMUNE: {
 			type: DataTypes.STRING,
-			allowNull: false
+			allowNull: true
+		},
+		CPT_CODEPOST: {
+			type: DataTypes.STRING,
+			allowNull: true
+		},
+		CPT_DEPARTEMENT: {
+			type: DataTypes.STRING,
+			allowNull: true
+		},
+		CPT_INSEE: {
+			type: DataTypes.STRING,
+			allowNull: true,
+			primaryKey: true
 		}
 	}, {
 		timestamps: false,

@@ -19,17 +19,17 @@ exports.getCodePostals= (req, res, next) => {
 }
 
 exports.getCodePostal= (req, res, next) => {
-    const codePostalId = req.params.codePostalId;
-    CodePostal.findByPk(codePostalId)
-        .then(codePostal => {
-            if (!codePostal) {
-                const error = new Error('CodePostal inexistante !');
+    const commune = req.params.commune;
+    CodePostal.findAll({where: {CPT_COMMUNE: commune}})
+        .then(codePostals => {
+            if (!codePostals) {
+                const error = new Error('Commune inexistante !');
                 error.statusCode = 404;
                 throw error;
             }
             res.status(200).json({
-                message: 'Code postal trouvé',
-                codePostal: codePostal
+                message: 'Commune trouvée',
+                CodePostal: codePostals
             });
         })
         .catch(err => {

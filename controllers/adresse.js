@@ -101,8 +101,11 @@ exports.updateAdresse = (req, res, next) => {
             adresse.ADR_LIBELLE_RUE = rue;
             adresse.ADR_VILLE = ville;
             return adresse.save();
-        }).then(result => {
-            res.status(200).json({ message: 'Adresse modifié' });
+        }).then(adresse => {
+            res.status(200).json({ 
+                message: 'Adresse modifié',
+                adresse: adresse
+             });
 
         })
         .catch(err => {

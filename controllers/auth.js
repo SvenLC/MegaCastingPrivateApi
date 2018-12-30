@@ -29,7 +29,7 @@ exports.login = (req, res, next) => {
             const token = jwt.sign({
                 login: loadedUser.UTI_LOGIN,
                 id: loadedUser.UTI_ID
-            }, 'somesupersecret',
+            }, 'BDB971EA6E6788317F359F23E86C5',
                 { expiresIn: '1h' }
             );
             res.status(200).json({ token: token, userId: loadedUser.UTI_ID.toString() });

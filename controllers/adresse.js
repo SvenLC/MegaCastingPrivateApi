@@ -68,7 +68,7 @@ exports.deleteAdresse = (req, res, next) => {
     Adresse.findByPk(adresseId)
         .then(adresse => {
             if (!adresse) {
-                const error = new Error('Adresse inexistant !');
+                const error = new Error('Adresse inexistante !');
                 error.statusCode = 404;
                 throw error;
             }

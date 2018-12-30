@@ -1,5 +1,3 @@
-const http = require('http');
-const path = require('path');
 const bodyParser = require('body-parser');
 
 const port = process.env.PORT || 3000
@@ -39,21 +37,21 @@ app.use((req,res,next) => {
 });
 
 app.use('/auth', authRoutes);
-app.use('/adresse', adresseRoutes);
-app.use('/contact', contactRoutes);
-app.use('/contenu', contenuRoutes);
-app.use('/prospect', prospectRoutes);
-app.use('/client', clientRoutes);
-app.use('/codePostal', codePostalRoutes);
-app.use('/partenaire', partenaireRoutes);
-app.use('/typeContenu', typeContenuRoutes);
-app.use('/domaineMetier', domaineMetierRoutes);
-app.use('/localisation', localisationRoutes)
-app.use('/metier', metierRoutes);
-app.use('/offreCasting', offreRoutes);
-app.use('/statutJuridique', statutJuridiqueRoutes);
-app.use('/utilisateur', utilisateurRoutes);
-app.use('/contrat', contratRoutes);
+app.use('/adresses', adresseRoutes);
+app.use('/contacts', contactRoutes);
+app.use('/contenus', contenuRoutes);
+app.use('/prospects', prospectRoutes);
+app.use('/clients', clientRoutes);
+app.use('/codePostaux', codePostalRoutes);
+app.use('/partenaires', partenaireRoutes);
+app.use('/typeContenus', typeContenuRoutes);
+app.use('/domaineMetiers', domaineMetierRoutes);
+app.use('/localisations', localisationRoutes)
+app.use('/metiers', metierRoutes);
+app.use('/offreCastings', offreRoutes);
+app.use('/statutJuridiques', statutJuridiqueRoutes);
+app.use('/utilisateurs', utilisateurRoutes);
+app.use('/contrats', contratRoutes);
 app.use('/', defaultRoutes);
 
 app.use((error, req, res, next) => {

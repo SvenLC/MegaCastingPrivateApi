@@ -47,10 +47,10 @@ exports.createProspect = (req, res, next) => {
     Prospect.create({
         PRO_NAME: nom
     })
-        .then(result => {
+        .then(prospect => {
             res.status(201).json({
                 message: 'Prospect crée',
-                prospect: result
+                prospect: prospect
             })
         })
         .catch(err => {
@@ -72,9 +72,10 @@ exports.deleteProspect = (req, res, next) => {
                 throw error;
             }
             return prospect.destroy();
-        }).then(result => {
+        }).then(prospect => {
             res.status(200).json({
-                message: 'Prospect supprimé'
+                message: 'Prospect supprimé',
+                prospect: prospect
             });
 
         })
@@ -98,10 +99,10 @@ exports.updateProspect = (req, res, next) => {
             }
             prospect.PRO_NAME = nom;
             return prospect.save();
-        }).then(result => {
+        }).then(prospect => {
             res.status(200).json({
                 message: 'Prospect modifié',
-                nom: nom
+                prospect: prospect
             });
 
         })

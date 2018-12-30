@@ -13,7 +13,7 @@ exports.getOffres = (req, res, next) => {
     Offre.findAll()
         .then(offres => {
             res.status(200).json({
-                Offre: offres
+                Offres: offres
             });
         })
         .catch(err => {
@@ -34,7 +34,7 @@ exports.getOffre = (req, res, next) => {
                 throw error;
             }
             res.status(200).json({
-                message: 'Offre de castinf trouvé',
+                message: 'Offre de casting trouvée',
                 offre: offre
             });
         })
@@ -85,8 +85,6 @@ exports.createOffre = (req, res, next) => {
             console.log('Failed to create');
         });
 }
-
-
 
 exports.deleteOffre = (req, res, next) => {
     const offreId = req.params.offreId;

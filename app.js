@@ -1,11 +1,9 @@
 const bodyParser = require('body-parser');
-
-const port = process.env.PORT || 3000
-
-
 const sequelize = require('./util/database');
 const express = require('express');
 const app = express();
+
+const port = process.env.PORT || 3000
 
 const authRoutes = require('./routes/auth');
 const isAuth = require('./middleware/isAuth');

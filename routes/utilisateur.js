@@ -6,9 +6,7 @@ const utilisateurController = require('../controllers/utilisateur');
 const router = express.Router();
 
 router.get('/:utilisateurId', utilisateurController.getUtilisateur);
-
 router.get('/', utilisateurController.getUtilisateurs);
-
 router.post('/', [
     body('UTI_MDP')
         .trim()
@@ -21,7 +19,6 @@ router.post('/', [
 ], utilisateurController.createUtilisateur);
 
 router.delete('/:utilisateurId', utilisateurController.deleteUtilisateur);
-
 router.put('/:utilisateurId', [
     body('UTI_MDP')
         .trim()

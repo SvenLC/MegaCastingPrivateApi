@@ -7,5 +7,4 @@ const router = express.Router();
 router.get('/', codePostalController.getCodePostals);
 router.get('/commune/:commune', codePostalController.getCodePostal);
 
-
 module.exports = router;

@@ -1,5 +1,3 @@
-const Sequelize = require('sequelize');
-
 const sequelize = require('../util/database');
 
 const Contact = sequelize.import('../models/T_E_CONTACT_CTC');

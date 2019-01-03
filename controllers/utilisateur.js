@@ -32,12 +32,13 @@ exports.getUtilisateur = (req, res, next) => {
 };
 
 exports.getUtilisateurs = (req, res, next) => {
-    Utilisateur.findAll()
+    Utilisateur.findAll({
+        attributes: ['UTI_ID', 'UTI_NOM', 'UTI_PRENOM', 'UTI_LOGIN', 'UTI_ADMINISTRATEUR']
+    })
         .then(utilisateurs => {
             res.status(200).json({
                 message: 'Utilisateurs touvé',
                 utilisateurs: utilisateurs
-
             });
         })
         .catch(err => {

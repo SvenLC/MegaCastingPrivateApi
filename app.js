@@ -1,8 +1,9 @@
 const bodyParser = require('body-parser');
 const sequelize = require('./util/database');
 const express = require('express');
-const app = express();
 
+
+const app = express();
 const port = process.env.PORT || 3000
 
 const authRoutes = require('./routes/auth');
@@ -24,9 +25,7 @@ const contratRoutes = require('./routes/contrat');
 const utilisateurRoutes = require('./routes/utilisateur');
 const defaultRoutes = require('./routes/index');
 
-
 app.use(bodyParser.json());
-
 app.use((req,res,next) => {
     res.setHeader('Acces-Control-Allow-Origin', '*');
     res.setHeader('Acces-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
@@ -62,7 +61,7 @@ app.use((error, req, res, next) => {
 
 
 sequelize
-    .sync()
+    .sync({})
     .then(
         app.listen(port, function () {
             var datetime = new Date();
@@ -73,7 +72,6 @@ sequelize
     .catch(err => {
             console.log(err);
         }
-
 );
 
 module.exports = app;

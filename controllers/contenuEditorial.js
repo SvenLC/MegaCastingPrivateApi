@@ -1,40 +1,38 @@
-const Sequelize = require('sequelize');
-
 const sequelize = require('../util/database');
 
 const Contenu = sequelize.import('../models/T_E_CONTENU_EDITORIAL_EDI');
 
 exports.getContenus = (req, res, next) => {
     Contenu.findAll()
-    .then(contenus => {
-        res.status(200).json({contenu: contenus});
-    })
-    .catch(err => {
-        if (!err.statusCode) {
-            err.statusCode = 500;
-        }
-        next(err);
-    });
+        .then(contenus => {
+            res.status(200).json({ contenu: contenus });
+        })
+        .catch(err => {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
+        });
 }
 
 exports.getContenu = (req, res, next) => {
     const contenuId = req.params.contenuId;
     Contenu.findByPk(contenuId)
-    .then(contenu => {
-        if (!contenu) {
-            const error = new Error('Contenu inexistante !');
-            error.statusCode = 404;
-            throw error;
-        }
-            res.status(200).json({contenu: contenu});
+        .then(contenu => {
+            if (!contenu) {
+                const error = new Error('Contenu inexistante !');
+                error.statusCode = 404;
+                throw error;
+            }
+            res.status(200).json({ contenu: contenu });
         })
-    .catch(err => {
-        if (!err.statusCode) {
-            err.statusCode = 500;
-        }
-        next(err);
-    }); 
- 
+        .catch(err => {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
+        });
+
 };
 
 exports.createContenu = (req, res, next) => {
@@ -48,19 +46,19 @@ exports.createContenu = (req, res, next) => {
         CET_ID: cetId
 
     })
-    .then(contenu => {
-        res.status(201).json({
-            message: 'Contenu créee',
-            contenu: contenu                                 
-        })        
-      })
-    .catch(err => {
-        if (!err.statusCode) {
-            err.statusCode = 500;
-        }
-        next(err);
-        console.log('Failed to create');
-      });
+        .then(contenu => {
+            res.status(201).json({
+                message: 'Contenu créee',
+                contenu: contenu
+            })
+        })
+        .catch(err => {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
+            console.log('Failed to create');
+        });
 }
 
 
@@ -75,9 +73,9 @@ exports.deleteContenu = (req, res, next) => {
                 throw error;
             }
             return contenu.destroy();
-        }).then(result => {            
-            res.status(200).json({message: 'Contenu supprimé'});
-            
+        }).then(result => {
+            res.status(200).json({ message: 'Contenu supprimé' });
+
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -93,25 +91,25 @@ exports.updateContenu = (req, res, next) => {
     const contenuEdi = req.body.EDI_CONTENU;
     const cetId = req.body.CET_ID;
     Contenu.findByPk(contenuId)
-    .then(contenu => {
-        if (!contenu) {
-            const error = new Error('Contenu inexistant !');
-            error.statusCode = 404;
-            throw error;
-        }        
-        contenu.EDI_DESCRIPTION = description;
-        contenu.EDI_CONTENU = contenuEdi;
-        contenu.CET_ID = cetId;
-        return contenu.save();     
-    }).then(result => {            
-        res.status(200).json({message: 'Contenu modifié'});
-        
-    })
-    .catch(err => {
-        if (!err.statusCode) {
-            err.statusCode = 500;
-        }
-        next(err);
-    });
+        .then(contenu => {
+            if (!contenu) {
+                const error = new Error('Contenu inexistant !');
+                error.statusCode = 404;
+                throw error;
+            }
+            contenu.EDI_DESCRIPTION = description;
+            contenu.EDI_CONTENU = contenuEdi;
+            contenu.CET_ID = cetId;
+            return contenu.save();
+        }).then(result => {
+            res.status(200).json({ message: 'Contenu modifié' });
+
+        })
+        .catch(err => {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
+        });
 }
 

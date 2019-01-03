@@ -1,6 +1,6 @@
 /* jshint indent: 1 */
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
 	return sequelize.define('T_E_OFFRE_CASTING_CAST', {
 		CAST_ID: {
 			type: DataTypes.INTEGER,
@@ -43,15 +43,47 @@ module.exports = function(sequelize, DataTypes) {
 		PRO_ID: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
-			primaryKey: true
+			references: {
+				model: 'T_E_PROSPECT_PRO',
+				key: 'PRO_ID'
+			}
 		},
 		MET_ID: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
-			primaryKey: true
+			references: {
+				model: 'T_R_METIER_MET',
+				key: 'MET_ID'
+			}
+		},
+		CTC_ID: {
+			type: DataTypes.INTEGER,
+			allowNull: false,
+			references: {
+				model: 'T_E_CONTACT_CTC',
+				key: 'CTC_ID'
+			}
+		},
+		LOC_ID: {
+			type: DataTypes.INTEGER,
+			allowNull: false,
+			references: {
+				model: 'T_R_LOCALISATION_LOC',
+				key: 'LOC_ID'
+			}
+		},
+		CON_ID: {
+			type: DataTypes.INTEGER,
+			allowNull: false,
+			references: {
+				model: 'T_R_CONTRAT_CON',
+				key: 'CON_ID'
+			}
 		}
+
 	}, {
-		timestamps: false,
-		tableName: 'T_E_OFFRE_CASTING_CAST'
-	});
+			timestamps: false,
+			tableName: 'T_E_OFFRE_CASTING_CAST'
+
+		});
 };

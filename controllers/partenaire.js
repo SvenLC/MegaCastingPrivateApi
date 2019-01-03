@@ -4,7 +4,10 @@ const Partenaire = sequelize.import('../models/T_H_PARTENAIRES_PAR');
 const Prospect = sequelize.import('../models/T_E_PROSPECT_PRO');
 
 exports.getPartenaires = (req, res, next) => {
-    Partenaire.findAll()
+    Partenaire.findAll({include: [
+        {model: Prospect }           
+      ]
+    })
         .then(partenaires => {
             res.status(200).json({ partenaire: partenaires });
         })

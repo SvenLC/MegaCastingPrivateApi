@@ -1,5 +1,3 @@
-const Sequelize = require('sequelize');
-
 const sequelize = require('../util/database');
 
 const ContenuType = sequelize.import('../models/T_R_CONTENU_EDITORIAL_TYPE_CET');

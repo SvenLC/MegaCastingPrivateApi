@@ -10,7 +10,9 @@ Sequelize.DATE.prototype._stringify = function _stringify(date, options) {
 };
 
 exports.getOffres = (req, res, next) => {
-    Offre.findAll()
+    Offre.findAll({
+
+    })
         .then(offres => {
             res.status(200).json({
                 Offres: offres
@@ -23,6 +25,48 @@ exports.getOffres = (req, res, next) => {
             next(err);
         });
 }
+
+exports.getFormatedOffres = (req, res, next) => {
+    sequelize.query('SELECT ' +
+        'CAST_INTITULE, ' +
+        'CAST_REFERENCE, ' +
+        'CAST_DATE_DEBUT_PUBLICATION, ' +
+        'CAST_DUREE_DIFFUSION, ' +
+        'CAST_DATE_DEBUT_CONTRAT, ' +
+        'CAST_NBR_POSTE, ' +
+        'CAST_DESCRIPTION_POSTE, ' +
+        'CAST_DESCRIPTION_PROFIL, ' +
+        'PRO_NAME, ' +
+        'CTC_NUM_TEL, ' +
+        'CTC_NUM_FAX, ' +
+        'CTC_EMAIL, ' +
+        'MET_LIBELLE, ' +
+        'DOM_LIBELLE, ' +
+        'LOC_LIBELLE, ' +
+        'CON_LIBELLE ' +
+        'FROM T_E_OFFRE_CASTING_CAST as cas ' +
+        'INNER JOIN T_E_PROSPECT_PRO as pro ON cas.PRO_ID = pro.PRO_ID ' +
+        'INNER JOIN T_E_CONTACT_CTC as ctc ON cas.CTC_ID = ctc.CTC_ID ' +
+        'INNER JOIN T_R_METIER_MET as met ON cas.MET_ID = met.MET_ID ' +
+        'INNER JOIN T_R_DOMAINE_METIER_DOM as dom ON met.DOM_ID = dom.DOM_ID ' +
+        'INNER JOIN T_R_LOCALISATION_LOC as loc ON cas.LOC_ID = loc.LOC_ID ' +
+        'INNER JOIN T_R_CONTRAT_CON as con on cas.CON_ID= con.CON_ID'
+
+        , { model: Offre })
+        .then(offres => {
+            res.status(200).json({
+                Offres: offres
+            });
+        })
+        .catch(err => {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
+        });
+}
+
+
 
 exports.getOffre = (req, res, next) => {
     const offreId = req.params.offreId;
@@ -58,7 +102,9 @@ exports.createOffre = (req, res, next) => {
     const descriptionProfil = req.body.CAST_DESCRIPTION_PROFIL;
     const prospectId = req.body.PRO_ID;
     const metierId = req.body.MET_ID;
-
+    const contactId = req.body.CTC_ID;
+    const localisationId = req.body.LOC_ID;
+    const contratId = req.body.CON_ID;
     Offre.create({
         CAST_INTITULE: intitule,
         CAST_REFERENCE: reference,
@@ -69,7 +115,10 @@ exports.createOffre = (req, res, next) => {
         CAST_DESCRIPTION_POSTE: descriptionPoste,
         CAST_DESCRIPTION_PROFIL: descriptionProfil,
         PRO_ID: prospectId,
-        MET_ID: metierId
+        MET_ID: metierId,
+        CTC_ID: contactId,
+        LOC_ID: localisationId,
+        CON_ID: contratId
     })
         .then(offre => {
             res.status(201).json({
@@ -123,6 +172,9 @@ exports.updateOffre = (req, res, next) => {
     const descriptionProfil = req.body.CAST_DESCRIPTION_PROFIL;
     const prospectId = req.body.PRO_ID;
     const metierId = req.body.MET_ID;
+    const contactId = req.body.CTC_ID;
+    const localisationId = req.body.LOC_ID;
+    const contratId = req.body.CON_ID;
 
     Offre.findByPk(offreId)
         .then(offre => {
@@ -144,6 +196,9 @@ exports.updateOffre = (req, res, next) => {
             offre.CAST_DESCRIPTION_PROFIL = descriptionProfil;
             offre.PRO_ID = prospectId;
             offre.MET_ID = metierId;
+            offre.CTC_ID = contactId;
+            offre.LOC_ID = localisationId;
+            offre.CON_ID = contratId;
             return offre.save();
         }).then(offre => {
             res.status(200).json({

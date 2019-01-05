@@ -64,9 +64,8 @@ exports.getFormatedOffres = (req, res, next) => {
         });
 }
 
-exports.getFormatedOffresById = (req, res, next) => {       
-    const {offreId} = req.params;
-    sequelize.query(`SELECT 
+const getFormatedOffresByIdSvc = (id) => {
+    return sequelize.query(`SELECT 
         CAST_ID, 
         CAST_INTITULE,
         CAST_REFERENCE,  
@@ -91,23 +90,20 @@ exports.getFormatedOffresById = (req, res, next) => {
         INNER JOIN T_R_DOMAINE_METIER_DOM as dom ON met.DOM_ID = dom.DOM_ID  
         INNER JOIN T_R_LOCALISATION_LOC as loc ON cas.LOC_ID = loc.LOC_ID  
         INNER JOIN T_R_CONTRAT_CON as con on cas.CON_ID = con.CON_ID
-        WHERE CAST_ID = ${offreId}`,        
-        { model: Offre })        
-        .then(result => {            
-            if (!result[0]) {                
-                const error = new Error('Offre inexistante !');
-                error.statusCode = 404;
-                throw error;
-            }
-            res.status(200).json(result[0]);       
-        })
-        .catch(err => {
-            if (!err.statusCode) {
-                err.statusCode = 500;
-            }
-            next(err);
-        });
+        WHERE CAST_ID = ${id}`,
+        { model: Offre })  
+}
 
+exports.getFormatedOffresById = async(req, res, next) => {
+    const { offreId } = req.params;
+    let result;
+    try {
+        result = await getFormatedOffresByIdSvc(offreId);
+        res.status(200).json(result[0]);
+    } catch (error) {
+        error.statusCode = 500;
+        next(error);
+    } 
 }
 
 exports.getOffre = (req, res, next) => {
@@ -159,14 +155,16 @@ exports.createOffre = (req, res, next) => {
         LOC_ID: localisationId,
         CON_ID: contratId
     })
-        .then(result => {              
+        .then(result => {
+            const res = getFormatedOffresByIdSvc(result.CAST_ID);
+            console.log(res);
             res.status(201).json(result);
-        })        
+        })
         .catch(err => {
             if (!err.statusCode) {
                 err.statusCode = 500;
             }
-            next(err);            
+            next(err);
         });
 }
 
@@ -231,7 +229,7 @@ exports.updateOffre = (req, res, next) => {
             offre.LOC_ID = localisationId;
             offre.CON_ID = contratId;
             return offre.save();
-        }).then(result => {            
+        }).then(result => {
             res.status(200).json(result);
         })
         .catch(err => {
@@ -241,3 +239,4 @@ exports.updateOffre = (req, res, next) => {
             next(err);
         });
 }
+

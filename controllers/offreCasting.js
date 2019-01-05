@@ -14,13 +14,9 @@ Sequelize.DATE.prototype._stringify = function _stringify(date, options) {
 };
 
 exports.getOffres = (req, res, next) => {
-    Offre.findAll({
-
-    })
-        .then(offres => {
-            res.status(200).json({
-                Offres: offres
-            });
+    Offre.findAll()
+        .then(results => {
+            res.status(200).json(results);
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -57,8 +53,8 @@ exports.getFormatedOffres = (req, res, next) => {
         INNER JOIN T_R_LOCALISATION_LOC as loc ON cas.LOC_ID = loc.LOC_ID  
         INNER JOIN T_R_CONTRAT_CON as con on cas.CON_ID= con.CON_ID`
         , { model: Offre })
-        .then(offres => {
-            res.status(200).json(offres);
+        .then(results => {
+            res.status(200).json(results);
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -117,17 +113,13 @@ exports.getFormatedOffresById = (req, res, next) => {
 exports.getOffre = (req, res, next) => {
     const offreId = req.params.offreId;
     Offre.findByPk(offreId)
-        .then(offre => {
-            if (!offre) {
+        .then(result => {
+            if (!result) {
                 const error = new Error('Offre inexistante !');
                 error.statusCode = 404;
                 throw error;
             }
-            res.status(200).json({
-                message: 'Offre de casting trouvée',
-                offre: offre
-                
-            });
+            res.status(200).json(result);
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -167,16 +159,8 @@ exports.createOffre = (req, res, next) => {
         LOC_ID: localisationId,
         CON_ID: contratId
     })
-        .then(offre => {
-            const object = getFormatedOffresById(offre.CAST_ID); 
-            index.addObject(object, function(err, content) {
-                console.log(content);
-              });     
-            res.status(201).json({
-                message: 'Offre créee',
-                offre: offre,
-                
-            })
+        .then(result => {              
+            res.status(201).json(result);
         })        
         .catch(err => {
             if (!err.statusCode) {
@@ -189,19 +173,15 @@ exports.createOffre = (req, res, next) => {
 exports.deleteOffre = (req, res, next) => {
     const offreId = req.params.offreId;
     Offre.findByPk(offreId)
-        .then(offre => {
-            if (!offre) {
+        .then(result => {
+            if (!result) {
                 const error = new Error('Offre inexistant !');
                 error.statusCode = 404;
                 throw error;
             }
             return offre.destroy();
         }).then(result => {
-            res.status(200).json({
-                message: 'Offre supprimé',
-                Offre: offre
-            });
-
+            res.status(200).json(result);
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -228,8 +208,8 @@ exports.updateOffre = (req, res, next) => {
     const contratId = req.body.CON_ID;
 
     Offre.findByPk(offreId)
-        .then(offre => {
-            if (!offre) {
+        .then(result => {
+            if (!result) {
                 const error = new Error({
                     message: 'Offre inexistante !'
                 });
@@ -251,17 +231,8 @@ exports.updateOffre = (req, res, next) => {
             offre.LOC_ID = localisationId;
             offre.CON_ID = contratId;
             return offre.save();
-        }).then(offre => {
-            index.partialUpdateObject(offre, function(err, content) {
-                if (err) throw err;
-              
-                console.log(content);
-              });
-            res.status(200).json({
-                message: 'Offre modifié',
-                Offre: offre
-            });
-
+        }).then(result => {            
+            res.status(200).json(result);
         })
         .catch(err => {
             if (!err.statusCode) {

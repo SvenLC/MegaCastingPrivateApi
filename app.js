@@ -4,7 +4,7 @@ const express = require('express');
 
 
 const app = express();
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3000;
 
 const authRoutes = require('./routes/auth');
 const isAuth = require('./middleware/isAuth');
@@ -14,7 +14,7 @@ const contenuRoutes = require('./routes/contenuEditorial');
 const prospectRoutes = require('./routes/prospect');
 const clientRoutes = require('./routes/client');
 const codePostalRoutes = require('./routes/codePostal');
-const partenaireRoutes= require('./routes/partenaire');
+const partenaireRoutes = require('./routes/partenaire');
 const typeContenuRoutes = require('./routes/contenuEditorialType');
 const domaineMetierRoutes = require('./routes/domaineMetier');
 const localisationRoutes = require('./routes/localisation');
@@ -26,7 +26,7 @@ const utilisateurRoutes = require('./routes/utilisateur');
 const defaultRoutes = require('./routes/index');
 
 app.use(bodyParser.json());
-app.use((req,res,next) => {
+app.use((req, res, next) => {
     res.setHeader('Acces-Control-Allow-Origin', '*');
     res.setHeader('Acces-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
     res.setHeader('Acces-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -70,8 +70,8 @@ sequelize
         })
     )
     .catch(err => {
-            console.log(err);
-        }
-);
+        console.log(err);
+    }
+    );
 
 module.exports = app;

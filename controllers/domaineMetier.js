@@ -57,8 +57,6 @@ exports.createDomaineMetier = (req, res, next) => {
         });
 }
 
-
-
 exports.deleteDomaineMetier = (req, res, next) => {
     const domaineMetierId = req.params.domaineMetierId;
     DomaineMetier.findByPk(domaineMetierId)

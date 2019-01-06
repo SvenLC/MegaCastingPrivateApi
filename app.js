@@ -61,7 +61,7 @@ app.use((error, req, res, next) => {
 
 
 sequelize
-    .sync({})
+    .sync()
     .then(
         app.listen(port, function () {
             var datetime = new Date();

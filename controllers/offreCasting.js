@@ -9,14 +9,15 @@ const sequelize = require('../util/database');
 const Offre = sequelize.import('../models/T_E_OFFRE_CASTING_CAST');
 
 // Override timezone formatting for MSSQL
-Sequelize.DATE.prototype._stringify = function _stringify(date, options) {
-    return this._applyTimezone(date, options).format('YYYY-MM-DD HH:mm:ss.SSS');
-};
+// Sequelize.DATE.prototype._stringify = function _stringify(date, options) {
+//     return this._applyTimezone(date, options).format('YYYY-MM-DD');
+// };
 
 exports.getOffres = (req, res, next) => {
     Offre.findAll()
         .then(results => {
             res.status(200).json(results);
+            
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -28,7 +29,7 @@ exports.getOffres = (req, res, next) => {
 
 exports.getFormatedOffres = (req, res, next) => {
     sequelize.query(`SELECT
-        CAST_ID, 
+        CAST_ID as ojectID, 
         CAST_INTITULE,  
         CAST_REFERENCE,  
         CAST_DATE_DEBUT_PUBLICATION,  
@@ -66,7 +67,7 @@ exports.getFormatedOffres = (req, res, next) => {
 
 const getFormatedOffresByIdSvc = (id) => {
     return sequelize.query(`SELECT 
-        CAST_ID, 
+        CAST_ID as objectID, 
         CAST_INTITULE,
         CAST_REFERENCE,  
         CAST_DATE_DEBUT_PUBLICATION,  
@@ -140,7 +141,6 @@ exports.createOffre = (req, res, next) => {
     const contactId = req.body.CTC_ID;
     const localisationId = req.body.LOC_ID;
     const contratId = req.body.CON_ID;
-    // const {CAST_INTITULE, CAST_ID} = req.body;
     Offre.create({
         CAST_INTITULE: intitule,
         CAST_REFERENCE: reference,
@@ -159,7 +159,7 @@ exports.createOffre = (req, res, next) => {
         .then(async (result) => {
             const object = await getFormatedOffresByIdSvc(result.CAST_ID);            
             index.addObjects(object, function(err, content) {
-                console.log(content);
+                
               });
             res.status(201).json(result);
         })
@@ -183,10 +183,15 @@ exports.deleteOffre = (req, res, next) => {
         //     return result.destroy();
         // })
         .then(result => {
-            index.deleteBy({
-                //CAST_ID: 38               
-              }, function(err, content) {
-                if (err) throw err;              
+            // index.deleteBy({
+            //     filters: 'CAST_ID: 37'               
+            //   }, function(err, content) {
+            //     if (err) throw err;              
+            //     console.log(content);
+            //   });
+            index.deleteObject('1071957951', function(err, content) {
+                if (err) throw err;
+              
                 console.log(content);
               });
             res.status(200).json(result);

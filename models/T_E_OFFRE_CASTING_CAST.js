@@ -17,15 +17,15 @@ module.exports = function (sequelize, DataTypes) {
 			allowNull: false
 		},
 		CAST_DATE_DEBUT_PUBLICATION: {
-			type: DataTypes.DATE,
+			type: DataTypes.DATEONLY,
 			allowNull: false
 		},
 		CAST_DUREE_DIFFUSION: {
-			type: DataTypes.TIME,
+			type: DataTypes.INTEGER,
 			allowNull: false
 		},
 		CAST_DATE_DEBUT_CONTRAT: {
-			type: DataTypes.DATE,
+			type: DataTypes.DATEONLY,
 			allowNull: false
 		},
 		CAST_NBR_POSTE: {

@@ -29,7 +29,7 @@ exports.getOffres = (req, res, next) => {
 
 exports.getFormatedOffres = (req, res, next) => {
     sequelize.query(`SELECT
-        CAST_ID as ojectID, 
+        CAST_ID as objectID, 
         CAST_INTITULE,  
         CAST_REFERENCE,  
         CAST_DATE_DEBUT_PUBLICATION,  
@@ -174,25 +174,18 @@ exports.createOffre = (req, res, next) => {
 exports.deleteOffre = (req, res, next) => {
     const offreId = req.params.offreId;
     Offre.findByPk(offreId)
-        // .then(result => {
-        //     if (!result) {
-        //         const error = new Error('Offre inexistant !');
-        //         error.statusCode = 404;
-        //         throw error;
-        //     }
-        //     return result.destroy();
-        // })
         .then(result => {
-            // index.deleteBy({
-            //     filters: 'CAST_ID: 37'               
-            //   }, function(err, content) {
-            //     if (err) throw err;              
-            //     console.log(content);
-            //   });
-            index.deleteObject('1071957951', function(err, content) {
-                if (err) throw err;
-              
-                console.log(content);
+            if (!result) {
+                const error = new Error('Offre inexistant !');
+                error.statusCode = 404;
+                throw error;
+            }
+            return result.destroy();
+        })
+        .then(result => {          
+            index.deleteObject(offreId, function(err, content) {
+                if (err) throw err;             
+                
               });
             res.status(200).json(result);
         })

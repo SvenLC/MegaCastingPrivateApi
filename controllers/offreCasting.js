@@ -140,6 +140,7 @@ exports.createOffre = (req, res, next) => {
     const contactId = req.body.CTC_ID;
     const localisationId = req.body.LOC_ID;
     const contratId = req.body.CON_ID;
+    // const {CAST_INTITULE, CAST_ID} = req.body;
     Offre.create({
         CAST_INTITULE: intitule,
         CAST_REFERENCE: reference,
@@ -155,9 +156,11 @@ exports.createOffre = (req, res, next) => {
         LOC_ID: localisationId,
         CON_ID: contratId
     })
-        .then(result => {
-            const res = getFormatedOffresByIdSvc(result.CAST_ID);
-            console.log(res);
+        .then(async (result) => {
+            const object = await getFormatedOffresByIdSvc(result.CAST_ID);            
+            index.addObjects(object, function(err, content) {
+                console.log(content);
+              });
             res.status(201).json(result);
         })
         .catch(err => {
@@ -171,14 +174,21 @@ exports.createOffre = (req, res, next) => {
 exports.deleteOffre = (req, res, next) => {
     const offreId = req.params.offreId;
     Offre.findByPk(offreId)
+        // .then(result => {
+        //     if (!result) {
+        //         const error = new Error('Offre inexistant !');
+        //         error.statusCode = 404;
+        //         throw error;
+        //     }
+        //     return result.destroy();
+        // })
         .then(result => {
-            if (!result) {
-                const error = new Error('Offre inexistant !');
-                error.statusCode = 404;
-                throw error;
-            }
-            return offre.destroy();
-        }).then(result => {
+            index.deleteBy({
+                //CAST_ID: 38               
+              }, function(err, content) {
+                if (err) throw err;              
+                console.log(content);
+              });
             res.status(200).json(result);
         })
         .catch(err => {
@@ -206,8 +216,8 @@ exports.updateOffre = (req, res, next) => {
     const contratId = req.body.CON_ID;
 
     Offre.findByPk(offreId)
-        .then(result => {
-            if (!result) {
+        .then(offre => {
+            if (!offre) {
                 const error = new Error({
                     message: 'Offre inexistante !'
                 });
@@ -229,8 +239,12 @@ exports.updateOffre = (req, res, next) => {
             offre.LOC_ID = localisationId;
             offre.CON_ID = contratId;
             return offre.save();
-        }).then(result => {
-            res.status(200).json(result);
+        }).then(async (result) => {
+            const object = await getFormatedOffresByIdSvc(result.CAST_ID);            
+            index.addObjects(object, function(err, content) {
+                console.log(content);
+              });
+            res.status(200).json(result);        
         })
         .catch(err => {
             if (!err.statusCode) {

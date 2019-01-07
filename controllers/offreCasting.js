@@ -15,8 +15,8 @@ const Offre = sequelize.import('../models/T_E_OFFRE_CASTING_CAST');
 
 exports.getOffres = (req, res, next) => {
     Offre.findAll()
-        .then(results => {
-            res.status(200).json(results);
+        .then(offres => {
+            res.status(200).json({offres: offres});
             
         })
         .catch(err => {

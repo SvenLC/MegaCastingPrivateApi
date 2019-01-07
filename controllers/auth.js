@@ -10,8 +10,7 @@ exports.login = (req, res, next) => {
     let loadedUser;
 
     User.findOne({ where: { UTI_LOGIN: login } })
-        .then(user => {
-            console.log(user.UTI_MDP);
+        .then(user => {            
             if (!user) {
                 const error = new error('Aucun utilisateur avec ce login n\'a été trouvé');
                 error.statusCode = 401;

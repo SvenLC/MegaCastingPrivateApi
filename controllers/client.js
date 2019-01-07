@@ -6,9 +6,7 @@ const Prospect = sequelize.import('../models/T_E_PROSPECT_PRO');
 exports.getClients = (req, res, next) => {
     Client.findAll()
         .then(clients => {
-            res.status(200).json({
-                client: clients
-            });
+            res.status(200).json(clients);
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -29,9 +27,7 @@ exports.getClient = (req, res, next) => {
                 error.statusCode = 404;
                 throw error;
             }
-            res.status(200).json({
-                client: client
-            });
+            res.status(200).json(client);
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -74,10 +70,7 @@ exports.createClient = (req, res, next) => {
 
     })
         .then(client => {
-            res.status(201).json({
-                message: 'Client crée',
-                client: client
-            })
+            res.status(201).json(client)
         })
         .catch(err => {
             if (!err.statusCode) {

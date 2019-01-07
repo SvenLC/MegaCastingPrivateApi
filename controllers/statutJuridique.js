@@ -81,7 +81,7 @@ exports.deleteStatutJuridique = (req, res, next) => {
 
 exports.updateStatutJuridique = (req, res, next) => {
     const statutJuridiqueId = req.params.statutJuridiqueId;
-    const libelle = req.body.MET_LIBELLE;
+    const libelle = req.body.JUR_LIBELLE;
 
     StatutJuridique.findByPk(statutJuridiqueId)
         .then(statutJuridique => {

@@ -6,7 +6,9 @@ const Prospect = sequelize.import('../models/T_E_PROSPECT_PRO');
 exports.getClients = (req, res, next) => {
     Client.findAll()
         .then(clients => {
-            res.status(200).json({clients: clients});
+            res.status(200).json({
+                clients: clients
+            });
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -27,7 +29,9 @@ exports.getClient = (req, res, next) => {
                 error.statusCode = 404;
                 throw error;
             }
-            res.status(200).json({client: client});
+            res.status(200).json({
+                client: client
+            });
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -53,25 +57,30 @@ exports.createClient = (req, res, next) => {
                 throw error;
             }
         })
-    Client.findByPk(proId)
+        .then(Client.findByPk(proId)
         .then(client => {
             if (client) {
                 const error = new Error('Un client correspond déjà à cette Id');
                 error.statusCode = 400;
                 throw error;
             }
-        })
-    Client.create({
-        PRO_ID: proId,
-        CLI_SIRET: siret,
-        CLI_RNA: rna,
-        JUR_ID: jurId,
-        ADR_ID: adrId
+        }))
+    
+        .then(
+            Client.create({
+                PRO_ID: proId,
+                CLI_SIRET: siret,
+                CLI_RNA: rna,
+                JUR_ID: jurId,
+                ADR_ID: adrId
+            })
+            .then(client => {
+                res.status(201).json({
+                    client: client
+                })
+            })
+        )
 
-    })
-        .then(client => {
-            res.status(201).json({client: client})
-        })
         .catch(err => {
             if (!err.statusCode) {
                 err.statusCode = 500;
@@ -100,7 +109,9 @@ exports.deleteClient = (req, res, next) => {
             }
             return client.destroy();
         }).then(client => {
-            res.status(200).json({client: client});
+            res.status(200).json({
+                client: client
+            });
 
         })
         .catch(err => {
@@ -134,7 +145,9 @@ exports.updateClient = (req, res, next) => {
             client.ADR_ID = adrId;
             return client.save();
         }).then(client => {
-            res.status(200).json({client: client});
+            res.status(200).json({
+                client: client
+            });
 
         })
         .catch(err => {

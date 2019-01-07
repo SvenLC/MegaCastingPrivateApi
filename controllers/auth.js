@@ -8,8 +8,7 @@ exports.login = (req, res, next) => {
     const login = req.body.UTI_LOGIN;
     const password = req.body.UTI_MDP;
     let loadedUser;
-    var undefined = void(0);
-    
+        
     sequelize.query(`SELECT
         UTI_ID,
         UTI_LOGIN,
@@ -17,12 +16,11 @@ exports.login = (req, res, next) => {
         FROM T_S_UTILISATEUR_UTI
         WHERE UTI_LOGIN = '${login}' `
         , { model: User})
-        .then(user => {
-            console.log(user[0]);
-            if (user[0] === undefined) {
-                const error = new error('Aucun utilisateur avec ce login n\'a été trouvé');
-                error.statusCode = 401;
-                throw error;
+        .then(user => {            
+            if (user[0] === undefined) {                
+                const error = new Error('Aucun utilisateur avec ce login n\'a été trouvé');
+                error.statusCode = 401;                
+                throw error;                
             }
             loadedUser = user;           
            return bcrypt.compare(password, user[0].UTI_MDP);

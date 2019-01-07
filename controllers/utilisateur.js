@@ -1,5 +1,7 @@
 const sequelize = require('../util/database');
-const { validationResult } = require('express-validator/check');
+const {
+    validationResult
+} = require('express-validator/check');
 const bcrypt = require('bcryptjs');
 
 const Utilisateur = sequelize.import('../models/T_S_UTILISATEUR_UTI');
@@ -32,10 +34,12 @@ exports.getUtilisateur = (req, res, next) => {
 
 exports.getUtilisateurs = (req, res, next) => {
     Utilisateur.findAll({
-        attributes: ['UTI_ID', 'UTI_NOM', 'UTI_PRENOM', 'UTI_LOGIN', 'UTI_ADMINISTRATEUR']
-    })
+            attributes: ['UTI_ID', 'UTI_NOM', 'UTI_PRENOM', 'UTI_LOGIN', 'UTI_ADMINISTRATEUR']
+        })
         .then(utilisateurs => {
-            res.status(200).json({utilisateurs: utilisateurs});
+            res.status(200).json({
+                utilisateurs: utilisateurs
+            });
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -59,25 +63,38 @@ exports.createUtilisateur = (req, res, next) => {
     const mdp = req.body.UTI_MDP;
     const admin = req.body.UTI_ADMINISTRATEUR;
 
-    bcrypt.hash(mdp, 12)
-        .then(hashedPw => {
-            Utilisateur.create({
-                UTI_NOM: nom,
-                UTI_PRENOM: prenom,
-                UTI_LOGIN: login,
-                UTI_MDP: hashedPw,
-                UTI_ADMINISTRATEUR: admin
-            })
-                .then(utilisateur => {
-                    res.status(201).json({
-                        UTI_ID: utilisateur.UTI_ID,
-                        UTI_NOM: utilisateur.UTI_NOM,
-                        UTI_PRENOM: utilisateur.UTI_PRENOM,
-                        UTI_LOGIN: utilisateur.UTI_LOGIN,
-                        UTI_ADMINISTRATEUR: utilisateur.UTI_ADMINISTRATEUR
-                    });
-                });
+    Utilisateur.findAll({
+            where: {
+                UTI_LOGIN: 'JGray'
+            }
         })
+        .then(user => {
+            if (user) {
+                const error = new Error(`Le login ${login} est déjà attribué`);
+                error.statusCode = 400;
+                throw error;
+            }
+        })
+        .then(bcrypt.hash(mdp, 12)
+            .then(hashedPw => {
+                Utilisateur.create({
+                        UTI_NOM: nom,
+                        UTI_PRENOM: prenom,
+                        UTI_LOGIN: login,
+                        UTI_MDP: hashedPw,
+                        UTI_ADMINISTRATEUR: admin
+                    })
+                    .then(utilisateur => {
+                        res.status(201).json({
+                            UTI_ID: utilisateur.UTI_ID,
+                            UTI_NOM: utilisateur.UTI_NOM,
+                            UTI_PRENOM: utilisateur.UTI_PRENOM,
+                            UTI_LOGIN: utilisateur.UTI_LOGIN,
+                            UTI_ADMINISTRATEUR: utilisateur.UTI_ADMINISTRATEUR
+                        });
+                    });
+            })
+        )
         .catch(err => {
             if (!err.statusCode) {
                 err.statusCode = 500;
@@ -159,5 +176,3 @@ exports.updateUtilisateur = (req, res, next) => {
             next(err);
         });
 }
-
-

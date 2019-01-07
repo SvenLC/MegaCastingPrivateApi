@@ -49,6 +49,14 @@ exports.createPartenaire = (req, res, next) => {
                 throw error;
             }
         })
+        Partenaire.findByPk(proId)
+        .then(partenaire => {
+            if (partenaire) {
+                const error = new Error('Un partenaire correspond déjà à cette Id');
+                error.statusCode = 400;
+                throw error;
+            }
+        })
         .then(prospect => {
             Partenaire.create({
                 PRO_ID: prospect.PRO_ID,

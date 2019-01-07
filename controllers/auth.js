@@ -8,16 +8,24 @@ exports.login = (req, res, next) => {
     const login = req.body.UTI_LOGIN;
     const password = req.body.UTI_MDP;
     let loadedUser;
-
-    User.findOne({ where: { UTI_LOGIN: login } })
-        .then(user => {            
-            if (!user) {
+    var undefined = void(0);
+    
+    sequelize.query(`SELECT
+        UTI_ID,
+        UTI_LOGIN,
+        UTI_MDP
+        FROM T_S_UTILISATEUR_UTI
+        WHERE UTI_LOGIN = '${login}' `
+        , { model: User})
+        .then(user => {
+            console.log(user[0]);
+            if (user[0] === undefined) {
                 const error = new error('Aucun utilisateur avec ce login n\'a été trouvé');
                 error.statusCode = 401;
                 throw error;
             }
-            loadedUser = user;
-            return bcrypt.compare(password, user.UTI_MDP);
+            loadedUser = user;           
+           return bcrypt.compare(password, user[0].UTI_MDP);
         })
         .then(isEqual => {
             if (!isEqual) {
@@ -26,12 +34,12 @@ exports.login = (req, res, next) => {
                 throw error;
             }
             const token = jwt.sign({
-                login: loadedUser.UTI_LOGIN,
-                id: loadedUser.UTI_ID
+                login: loadedUser[0].UTI_LOGIN,
+                id: String(loadedUser[0].UTI_ID)
             }, 'BDB971EA6E6788317F359F23E86C5',
                 { expiresIn: '1h' }
             );
-            res.status(200).json({ UTI_ID: loadedUser.UTI_ID.toString(), UTI_TOKEN: token });
+            res.status(200).json({ UTI_ID: loadedUser[0].UTI_ID.toString(), UTI_TOKEN: token });
         })
         .catch(err => {
             if (!err.statusCode) {

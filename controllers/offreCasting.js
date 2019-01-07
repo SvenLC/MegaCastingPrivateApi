@@ -100,7 +100,7 @@ exports.getFormatedOffresById = async(req, res, next) => {
     let result;
     try {
         result = await getFormatedOffresByIdSvc(offreId);
-        res.status(200).json(result[0]);
+        res.status(200).json({Offre: result[0]});
     } catch (error) {
         error.statusCode = 500;
         next(error);

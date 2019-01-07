@@ -47,10 +47,7 @@ exports.createContenu = (req, res, next) => {
 
     })
         .then(contenu => {
-            res.status(201).json({
-                message: 'Contenu créee',
-                contenu: contenu
-            })
+            res.status(201).json({ contenu: contenu })
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -73,8 +70,8 @@ exports.deleteContenu = (req, res, next) => {
                 throw error;
             }
             return contenu.destroy();
-        }).then(result => {
-            res.status(200).json({ message: 'Contenu supprimé' });
+        }).then(contenu => {
+            res.status(200).json({ contenu: contenu});
 
         })
         .catch(err => {
@@ -101,8 +98,8 @@ exports.updateContenu = (req, res, next) => {
             contenu.EDI_CONTENU = contenuEdi;
             contenu.CET_ID = cetId;
             return contenu.save();
-        }).then(result => {
-            res.status(200).json({ message: 'Contenu modifié' });
+        }).then(contenu => {
+            res.status(200).json({ contenu: contenu });
 
         })
         .catch(err => {

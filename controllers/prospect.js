@@ -5,10 +5,7 @@ const Prospect = sequelize.import('../models/T_E_PROSPECT_PRO');
 exports.getProspects = (req, res, next) => {
     Prospect.findAll()
         .then(prospects => {
-            res.status(200).json({
-                message: 'Prospects trouvé',
-                prospects: prospects
-            });
+            res.status(200).json({prospects: prospects});
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -27,10 +24,7 @@ exports.getProspect = (req, res, next) => {
                 error.statusCode = 404;
                 throw error;
             }
-            res.status(200).json({
-                message: 'Prospect trouvé',
-                prospect: prospect
-            });
+            res.status(200).json({prospect: prospect});
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -48,10 +42,7 @@ exports.createProspect = (req, res, next) => {
         PRO_NAME: nom
     })
         .then(prospect => {
-            res.status(201).json({
-                message: 'Prospect crée',
-                prospect: prospect
-            })
+            res.status(201).json({prospect: prospect})
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -73,10 +64,7 @@ exports.deleteProspect = (req, res, next) => {
             }
             return prospect.destroy();
         }).then(prospect => {
-            res.status(200).json({
-                message: 'Prospect supprimé',
-                prospect: prospect
-            });
+            res.status(200).json({prospect: prospect});
 
         })
         .catch(err => {
@@ -100,10 +88,7 @@ exports.updateProspect = (req, res, next) => {
             prospect.PRO_NAME = nom;
             return prospect.save();
         }).then(prospect => {
-            res.status(200).json({
-                message: 'Prospect modifié',
-                prospect: prospect
-            });
+            res.status(200).json({prospect: prospect});
 
         })
         .catch(err => {

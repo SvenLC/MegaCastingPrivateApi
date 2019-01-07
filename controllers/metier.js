@@ -45,10 +45,7 @@ exports.createMetier = (req, res, next) => {
 
     })
         .then(metier => {
-            res.status(201).json({
-                message: 'Métier créee',
-                metier: metier
-            })
+            res.status(201).json({metier: metier})
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -72,7 +69,7 @@ exports.deleteMetier = (req, res, next) => {
             }
             return metier.destroy();
         }).then(metier => {
-            res.status(200).json({ message: 'Métier supprimé', metier: metier });
+            res.status(200).json({metier: metier});
 
         })
         .catch(err => {
@@ -98,7 +95,7 @@ exports.updateMetier = (req, res, next) => {
             metier.MET_LIBELLE = libelle;
             return metier.save();
         }).then(metier => {
-            res.status(200).json({ message: 'Métier modifié', metier: metier });
+            res.status(200).json({metier: metier});
 
         })
         .catch(err => {

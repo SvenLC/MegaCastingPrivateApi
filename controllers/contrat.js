@@ -45,11 +45,7 @@ exports.createContrat = (req, res, next) => {
 
     })
         .then(contrat => {
-            res.status(201).json({
-                message: 'contrat créee',
-                contrat: contrat
-
-            })
+            res.status(201).json({contrat: contrat})
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -71,8 +67,8 @@ exports.deleteContrat = (req, res, next) => {
                 throw error;
             }
             return contrat.destroy();
-        }).then(result => {
-            res.status(200).json({ message: 'contrat supprimé' });
+        }).then(contrat => {
+            res.status(200).json({ contrat: contrat});
 
         })
         .catch(err => {
@@ -97,8 +93,8 @@ exports.updateContrat = (req, res, next) => {
 
             contrat.CON_LIBELLE = libelle;
             return contrat.save();
-        }).then(result => {
-            res.status(200).json({ message: 'contrat modifié' });
+        }).then(contrat => {
+            res.status(200).json({ contrat: contrat });
 
         })
         .catch(err => {

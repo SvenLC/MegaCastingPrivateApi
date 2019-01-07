@@ -43,10 +43,7 @@ exports.createDomaineMetier = (req, res, next) => {
 
     })
         .then(domaineMetier => {
-            res.status(201).json({
-                message: 'Domaine métier crée',
-                domaineMetier: domaineMetier
-            })
+            res.status(201).json({domaineMetier: domaineMetier})
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -67,8 +64,8 @@ exports.deleteDomaineMetier = (req, res, next) => {
                 throw error;
             }
             return domaineMetier.destroy();
-        }).then(result => {
-            res.status(200).json({ message: 'Domaine de métier supprimé' });
+        }).then(domaineMetier=> {
+            res.status(200).json({domaineMetier: domaineMetier});
 
         })
         .catch(err => {
@@ -93,8 +90,8 @@ exports.updateDomaineMetier = (req, res, next) => {
 
             domaineMetier.DOM_LIBELLE = libelle;
             return domaineMetier.save();
-        }).then(result => {
-            res.status(200).json({ message: 'Domaine métier modifié' });
+        }).then(domaineMetier => {
+            res.status(200).json({domaineMetier: domaineMetier});
 
         })
         .catch(err => {

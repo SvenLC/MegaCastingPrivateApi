@@ -6,7 +6,7 @@ const Prospect = sequelize.import('../models/T_E_PROSPECT_PRO');
 exports.getPartenaires = (req, res, next) => {
     Partenaire.findAll()
         .then(partenaires => {
-            res.status(200).json(partenaires);
+            res.status(200).json({partenaires: partenaires});
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -25,7 +25,7 @@ exports.getPartenaire = (req, res, next) => {
                 error.statusCode = 404;
                 throw error;
             }
-            res.status(200).json(partenaire);
+            res.status(200).json({partenaire: partenaire});
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -57,7 +57,7 @@ exports.createPartenaire = (req, res, next) => {
             })
         })
         .then(partenaire => {
-            res.status(201).json(partenaire);
+            res.status(201).json({partenaire: partenaire});
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -80,7 +80,7 @@ exports.deletePartenaire = (req, res, next) => {
             }
             return partenaire.destroy();
         }).then(partenaire => {
-            res.status(200).json(partenaire);
+            res.status(200).json({partenaire: partenaire});
 
         })
         .catch(err => {
@@ -108,7 +108,7 @@ exports.updatePartenaire = (req, res, next) => {
             partenaire.PAR_MDP = mdp;
             return partenaire.save();
         }).then(partenaire => {
-            res.status(200).json(partenaire);
+            res.status(200).json({partenaire: partenaire});
 
         })
         .catch(err => {

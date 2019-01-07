@@ -46,11 +46,8 @@ exports.createAdresse = (req, res, next) => {
         ADR_VILLE: ville
 
     })
-        .then(result => {
-            res.status(201).json({
-                message: 'Adresse créee',
-                adresse: result
-            })
+        .then(adresse => {
+            res.status(201).json({adresse: result})
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -71,8 +68,8 @@ exports.deleteAdresse = (req, res, next) => {
                 throw error;
             }
             return adresse.destroy();
-        }).then(result => {
-            res.status(200).json({ message: 'Adresse supprimé' });
+        }).then(adresse => {
+            res.status(200).json({ adresse: adresse });
 
         })
         .catch(err => {
@@ -100,10 +97,7 @@ exports.updateAdresse = (req, res, next) => {
             adresse.ADR_VILLE = ville;
             return adresse.save();
         }).then(adresse => {
-            res.status(200).json({ 
-                message: 'Adresse modifié',
-                adresse: adresse
-             });
+            res.status(200).json({adresse: adresse});
 
         })
         .catch(err => {

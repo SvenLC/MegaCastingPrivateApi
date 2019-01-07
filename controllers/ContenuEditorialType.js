@@ -43,10 +43,7 @@ exports.createContenuType = (req, res, next) => {
 
     })
         .then(contenuType => {
-            res.status(201).json({
-                message: 'Type de contenu crée',
-                contenuType: contenuType
-            })
+            res.status(201).json({contenuType: contenuType})
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -68,9 +65,9 @@ exports.deleteContenuType = (req, res, next) => {
                 error.statusCode = 404;
                 throw error;
             }
-            return o.destroy();
-        }).then(result => {
-            res.status(200).json({ message: 'Type de contenu supprimé' });
+            return contenuType.destroy();
+        }).then(contenuType => {
+            res.status(200).json({ contenuType: contenuType});
 
         })
         .catch(err => {
@@ -95,8 +92,8 @@ exports.updateContenuType = (req, res, next) => {
 
             contenuType.CET_LIBELLE = libelle;
             return contenuType.save();
-        }).then(result => {
-            res.status(200).json({ message: 'Type de contenu modifié' });
+        }).then(contenuType => {
+            res.status(200).json({ contenuType: contenuType});
 
         })
         .catch(err => {

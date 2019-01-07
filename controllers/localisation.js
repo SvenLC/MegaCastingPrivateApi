@@ -5,10 +5,7 @@ const Localisation = sequelize.import('../models/T_R_LOCALISATION_LOC');
 exports.getLocalisations = (req, res, next) => {
     Localisation.findAll()
         .then(localisations => {
-            res.status(200).json({
-                message: 'Localisation trouvé',
-                Localisation: localisations
-            });
+            res.status(200).json({Localisation: localisations});
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -27,10 +24,7 @@ exports.getLocalisation = (req, res, next) => {
                 error.statusCode = 404;
                 throw error;
             }
-            res.status(200).json({
-                message: 'localisation trouvé',
-                localisation: localisation
-            });
+            res.status(200).json({localisation: localisation});
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -49,10 +43,7 @@ exports.createLocalisation = (req, res, next) => {
 
     })
         .then(localisation => {
-            res.status(201).json({
-                message: 'Localisation créee',
-                localisation: localisation
-            })
+            res.status(201).json({localisation: localisation})
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -76,10 +67,7 @@ exports.deleteLocalisation = (req, res, next) => {
             }
             return localisation.destroy();
         }).then(result => {
-            res.status(200).json({
-                message: 'Localisation supprimé',
-                Localisation: localisation
-            });
+            res.status(200).json({Localisation: localisation});
 
         })
         .catch(err => {
@@ -107,10 +95,7 @@ exports.updateLocalisation = (req, res, next) => {
             localisation.LOC_LIBELLE = libelle;
             return localisation.save();
         }).then(localisation => {
-            res.status(200).json({
-                message: 'Localisation modifié',
-                Localisation: localisation
-            });
+            res.status(200).json({Localisation: localisation});
 
         })
         .catch(err => {

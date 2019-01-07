@@ -53,10 +53,7 @@ exports.createContact = (req, res, next) => {
 
     })
         .then(contact => {
-            res.status(201).json({
-                message: 'Contact créee',
-                contact: contact
-            })
+            res.status(201).json({ contact: contact })
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -77,8 +74,8 @@ exports.deleteContact = (req, res, next) => {
                 throw error;
             }
             return contact.destroy();
-        }).then(result => {
-            res.status(200).json({ message: 'Contact supprimé' });
+        }).then(contact => {
+            res.status(200).json({ contact: contact});
 
         })
         .catch(err => {
@@ -112,8 +109,8 @@ exports.updateContact = (req, res, next) => {
             contact.CTC_PRINCIPALE = principale;
             contact.PRO_ID = proId;
             return contact.save();
-        }).then(result => {
-            res.status(200).json({ message: 'Contact modifié' });
+        }).then(contact => {
+            res.status(200).json({ contact: contact });
 
         })
         .catch(err => {

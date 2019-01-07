@@ -110,13 +110,13 @@ exports.getFormatedOffresById = async(req, res, next) => {
 exports.getOffre = (req, res, next) => {
     const offreId = req.params.offreId;
     Offre.findByPk(offreId)
-        .then(result => {
-            if (!result) {
+        .then(offre => {
+            if (!offre) {
                 const error = new Error('Offre inexistante !');
                 error.statusCode = 404;
                 throw error;
             }
-            res.status(200).json(result);
+            res.status(200).json({offre: offre});
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -156,12 +156,12 @@ exports.createOffre = (req, res, next) => {
         LOC_ID: localisationId,
         CON_ID: contratId
     })
-        .then(async (result) => {
-            const object = await getFormatedOffresByIdSvc(result.CAST_ID);            
+        .then(async (offre) => {
+            const object = await getFormatedOffresByIdSvc(offre.CAST_ID);            
             index.addObjects(object, function(err, content) {
                 
               });
-            res.status(201).json(result);
+            res.status(201).json({offre: offre});
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -174,20 +174,20 @@ exports.createOffre = (req, res, next) => {
 exports.deleteOffre = (req, res, next) => {
     const offreId = req.params.offreId;
     Offre.findByPk(offreId)
-        .then(result => {
-            if (!result) {
+        .then(offre => {
+            if (!offre) {
                 const error = new Error('Offre inexistant !');
                 error.statusCode = 404;
                 throw error;
             }
-            return result.destroy();
+            return offre.destroy();
         })
-        .then(result => {          
+        .then(offre => {          
             index.deleteObject(offreId, function(err, content) {
                 if (err) throw err;             
                 
               });
-            res.status(200).json(result);
+            res.status(200).json({offre: offre});
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -237,12 +237,12 @@ exports.updateOffre = (req, res, next) => {
             offre.LOC_ID = localisationId;
             offre.CON_ID = contratId;
             return offre.save();
-        }).then(async (result) => {
-            const object = await getFormatedOffresByIdSvc(result.CAST_ID);            
+        }).then(async (offre) => {
+            const object = await getFormatedOffresByIdSvc(offre.CAST_ID);            
             index.addObjects(object, function(err, content) {
                 console.log(content);
               });
-            res.status(200).json(result);        
+            res.status(200).json({offre: offre});        
         })
         .catch(err => {
             if (!err.statusCode) {

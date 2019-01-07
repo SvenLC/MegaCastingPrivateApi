@@ -44,10 +44,7 @@ exports.createStatutJuridique = (req, res, next) => {
 
     })
         .then(statutJuridique => {
-            res.status(201).json({
-                message: 'Statut juridique crée',
-                statutJuridique: statutJuridique
-            })
+            res.status(201).json({statutJuridique: statutJuridique})
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -71,7 +68,7 @@ exports.deleteStatutJuridique = (req, res, next) => {
             }
             return statutJuridique.destroy();
         }).then(statutJuridique => {
-            res.status(200).json({ message: 'Statut juridique supprimé', statutJuridique: statutJuridique });
+            res.status(200).json({statutJuridique: statutJuridique});
 
         })
         .catch(err => {
@@ -97,7 +94,7 @@ exports.updateStatutJuridique = (req, res, next) => {
             statutJuridique.JUR_LIBELLE = libelle;
             return statutJuridique.save();
         }).then(statutJuridique => {
-            res.status(200).json({ message: 'Statut juridique modifié', statutJuridique: statutJuridique });
+            res.status(200).json({statutJuridique: statutJuridique});
 
         })
         .catch(err => {

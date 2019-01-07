@@ -14,7 +14,6 @@ exports.getUtilisateur = (req, res, next) => {
                 throw error;
             }
             res.status(200).json({
-                message: 'Utilisateur trouvé',
                 UTI_ID: utilisateur.UTI_ID,
                 UTI_NOM: utilisateur.UTI_NOM,
                 UTI_PRENOM: utilisateur.UTI_PRENOM,
@@ -36,10 +35,7 @@ exports.getUtilisateurs = (req, res, next) => {
         attributes: ['UTI_ID', 'UTI_NOM', 'UTI_PRENOM', 'UTI_LOGIN', 'UTI_ADMINISTRATEUR']
     })
         .then(utilisateurs => {
-            res.status(200).json({
-                message: 'Utilisateurs touvé',
-                utilisateurs: utilisateurs
-            });
+            res.status(200).json({utilisateurs: utilisateurs});
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -74,7 +70,6 @@ exports.createUtilisateur = (req, res, next) => {
             })
                 .then(utilisateur => {
                     res.status(201).json({
-                        message: 'Utilisateur crée',
                         UTI_ID: utilisateur.UTI_ID,
                         UTI_NOM: utilisateur.UTI_NOM,
                         UTI_PRENOM: utilisateur.UTI_PRENOM,
@@ -103,7 +98,6 @@ exports.deleteUtilisateur = (req, res, next) => {
             return utilisateur.destroy();
         }).then(utilisateur => {
             res.status(200).json({
-                message: 'Utilisateur supprimé',
                 UTI_ID: utilisateur.UTI_ID,
                 UTI_NOM: utilisateur.UTI_NOM,
                 UTI_PRENOM: utilisateur.UTI_PRENOM,
@@ -151,8 +145,6 @@ exports.updateUtilisateur = (req, res, next) => {
                 })
                 .then(utilisateur => {
                     res.status(200).json({
-                        message: 'Utilisateur modifié',
-                        //UTI_ID: utilisateur.UTI_ID,
                         UTI_NOM: utilisateur.UTI_NOM,
                         UTI_PRENOM: utilisateur.UTI_PRENOM,
                         UTI_LOGIN: utilisateur.UTI_LOGIN,

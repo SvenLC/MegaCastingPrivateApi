@@ -24,7 +24,7 @@ exports.getCodePostal = (req, res, next) => {
                 error.statusCode = 404;
                 throw error;
             }
-            res.status(200).json(codePostals);
+            res.status(200).json({codePostals: codePostals});
         })
         .catch(err => {
             if (!err.statusCode) {

@@ -42,52 +42,29 @@ exports.getPartenaire = (req, res, next) => {
 
 };
 
-// exports.createPartenaire = (req, res, next) => {
-//     const proId = req.body.PRO_ID;
-//     const login = req.body.PAR_LOGIN;
-//     const mdp = req.body.PAR_MDP;
+exports.getPartenaireByLogin = (req, res, next) => {
+    const login = req.params.partenaireLogin;
 
-//     Prospect.findByPk(proId)
-//         .then(prospect => {
-//             if (!prospect) {
-//                 const error = new Error('Aucun prospect ne correspond');
-//                 error.statusCode = 404;
-//                 throw error;
-//             }
-//         })
-//         .then(Partenaire.findByPk(proId)
-//             .then(partenaire => {
-//                 if (partenaire) {
-//                     const error = new Error('Un partenaire correspond déjà à cette Id');
-//                     error.statusCode = 400;
-//                     throw error;
-//                 }
-//             })
-//             .then(Partenaire.create({
-//                     PRO_ID: prospect.PRO_ID,
-//                     PAR_LOGIN: login,
-//                     PAR_MDP: mdp
-//                 })
-//             )
-//             .then(partenaire => {
-//                 res.status(201).json({
-//                     partenaire: partenaire
-//                 });
-//             })
-//             .catch(err => {
-//                 if (!err.statusCode) {
-//                     err.statusCode = 500;
-//                 }
-//                 next(err);
-//             })
-//         ) 
-//         .catch(err => {
-//             if (!err.statusCode) {
-//                 err.statusCode = 500;
-//             }
-//             next(err);
-//         });
-// }
+    Partenaire.findOne({
+            where: {
+                PAR_LOGIN: login
+            }
+        })
+        .then(partenaire => {
+            if (!partenaire) {
+                const error = new Error('Aucun partenaire trouvé');
+                error.statusCode = 404;
+                throw error;
+            }
+            res.status(200).json(partenaire);
+        })
+        .catch(err => {
+            if (!err.statusCode) {
+                err.statusCode = 500;
+            }
+            next(err);
+        });
+}
 
 exports.createPartenaire = async (req, res, next) => {
     const proId = req.body.PRO_ID;
@@ -122,6 +99,22 @@ exports.createPartenaire = async (req, res, next) => {
         next(error);
     }
     try {
+        await Partenaire.findAll({
+                where: {
+                    PAR_LOGIN: '\'' + login + '\''
+                }
+            })
+            .then(user => {
+                if (user) {
+                    const error = new Error(`Le login ${login} est déjà attribué`);
+                    error.statusCode = 400;
+                    throw error;
+                }
+            })
+    } catch (error) {
+
+    }
+    try {
         await Partenaire.create({
                 PRO_ID: loadedProspect.PRO_ID,
                 PAR_LOGIN: login,
@@ -137,12 +130,12 @@ exports.createPartenaire = async (req, res, next) => {
                 if (!err.statusCode) {
                     err.statusCode = 500;
                 }
-                
+
             });
     } catch (error) {
         next(error);
     }
-    
+
 }
 
 

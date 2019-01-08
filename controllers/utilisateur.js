@@ -65,7 +65,7 @@ exports.createUtilisateur = (req, res, next) => {
 
     Utilisateur.findAll({
             where: {
-                UTI_LOGIN: 'JGray'
+                UTI_LOGIN: '\'' + login + '\''
             }
         })
         .then(user => {
@@ -92,7 +92,13 @@ exports.createUtilisateur = (req, res, next) => {
                             UTI_LOGIN: utilisateur.UTI_LOGIN,
                             UTI_ADMINISTRATEUR: utilisateur.UTI_ADMINISTRATEUR
                         });
-                    });
+                    })
+                    .catch(err => {
+                        if (!err.statusCode) {
+                            err.statusCode = 500;
+                        }
+                        next(err);
+                    })
             })
         )
         .catch(err => {

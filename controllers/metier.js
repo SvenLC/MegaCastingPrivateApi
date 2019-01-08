@@ -83,6 +83,7 @@ exports.deleteMetier = (req, res, next) => {
 exports.updateMetier = (req, res, next) => {
     const metierId = req.params.metierId;
     const libelle = req.body.MET_LIBELLE;
+    const domaine = req.body.DOM_ID
 
     Metier.findByPk(metierId)
         .then(metier => {
@@ -93,6 +94,7 @@ exports.updateMetier = (req, res, next) => {
             }
 
             metier.MET_LIBELLE = libelle;
+            metier.DOM_ID = domaine;
             return metier.save();
         }).then(metier => {
             res.status(200).json({metier: metier});

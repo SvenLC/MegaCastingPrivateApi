@@ -18,7 +18,6 @@ router.post('/', [
         .isLength({ min: 4 })
 ], utilisateurController.createUtilisateur);
 
-router.delete('/:utilisateurId', utilisateurController.deleteUtilisateur);
 router.put('/:utilisateurId', [
     body('UTI_MDP')
         .trim()
@@ -29,6 +28,16 @@ router.put('/:utilisateurId', [
         .isEmpty()
         .isLength({ min: 4 })
 ], utilisateurController.updateUtilisateur);
+
+router.put('/mdp/:utilisateurId', [
+    body('UTI_MDP')
+    .trim()
+    .isLenght({ min: 6})
+], utilisateurController.updateUtilisateurMdp);
+
+router.delete('/:utilisateurId', utilisateurController.deleteUtilisateur);
+
+
 
 module.exports = router;
 

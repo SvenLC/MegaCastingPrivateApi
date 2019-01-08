@@ -8,11 +8,6 @@ const sequelize = require('../util/database');
 
 const Offre = sequelize.import('../models/T_E_OFFRE_CASTING_CAST');
 
-// Override timezone formatting for MSSQL
-// Sequelize.DATE.prototype._stringify = function _stringify(date, options) {
-//     return this._applyTimezone(date, options).format('YYYY-MM-DD');
-// };
-
 exports.getOffres = (req, res, next) => {
     Offre.findAll()
         .then(offres => {
@@ -54,8 +49,8 @@ exports.getFormatedOffres = (req, res, next) => {
         INNER JOIN T_R_LOCALISATION_LOC as loc ON cas.LOC_ID = loc.LOC_ID  
         INNER JOIN T_R_CONTRAT_CON as con on cas.CON_ID= con.CON_ID`
         , { model: Offre })
-        .then(results => {
-            res.status(200).json(results);
+        .then(offres => {
+            res.status(200).json({Offres: offres});
         })
         .catch(err => {
             if (!err.statusCode) {

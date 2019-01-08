@@ -58,29 +58,34 @@ exports.createClient = (req, res, next) => {
             }
         })
         .then(Client.findByPk(proId)
-        .then(client => {
-            if (client) {
-                const error = new Error('Un client correspond déjà à cette Id');
-                error.statusCode = 400;
-                throw error;
-            }
-        }))
-    
-        .then(
-            Client.create({
-                PRO_ID: proId,
-                CLI_SIRET: siret,
-                CLI_RNA: rna,
-                JUR_ID: jurId,
-                ADR_ID: adrId
+            .then(client => {
+                if (client) {
+                    const error = new Error('Un client correspond déjà à cette Id');
+                    error.statusCode = 400;
+                    throw error;
+                }
             })
+            .then(Client.create({
+                    PRO_ID: proId,
+                    CLI_SIRET: siret,
+                    CLI_RNA: rna,
+                    JUR_ID: jurId,
+                    ADR_ID: adrId
+                })
+            )
             .then(client => {
                 res.status(201).json({
                     client: client
-                })
+                });
+            })            
+            .catch(err => {
+                if (!err.statusCode) {
+                    err.statusCode = 500;
+                }
+                next(err);
+                console.log('Failed to create');
             })
         )
-
         .catch(err => {
             if (!err.statusCode) {
                 err.statusCode = 500;

@@ -66,7 +66,7 @@ exports.deleteLocalisation = (req, res, next) => {
                 throw error;
             }
             return localisation.destroy();
-        }).then(result => {
+        }).then(localisation => {
             res.status(200).json({Localisation: localisation});
 
         })

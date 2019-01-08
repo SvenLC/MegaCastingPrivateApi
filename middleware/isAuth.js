@@ -10,7 +10,7 @@ module.exports = (req, res, next) => {
     const token = autHeader.split(' ')[1];
     let decodedToken;
     try {
-        decodedToken = jwt.verify(token, 'somesupersecret');
+        decodedToken = jwt.verify(token, 'BDB971EA6E6788317F359F23E86C5');
     } catch (error) {
         error.statusCode = 500;
         throw error;

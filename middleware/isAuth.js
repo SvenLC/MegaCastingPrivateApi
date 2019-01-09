@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
-    const autHeader = req.get('Authorization');
     const domain = 'https://megacastingpublicapi.azurewebsites.net';
     const local = 'http://localhost:3000';
     const url = req.get('Origin');

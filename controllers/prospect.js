@@ -35,6 +35,28 @@ exports.getProspect = (req, res, next) => {
 
 };
 
+exports.getProspectFormated = (req, res, next) => {
+    sequelize.query(`SELECT
+    pro.PRO_ID
+    PRO_NAME,
+    CLI_RNA,
+    CLI_SIRET,
+    PAR_LOGIN
+    FROM T_E_PROSPECT_PRO as pro
+    INNER JOIN T_H_CLIENT_CLI as cli ON cli.PRO_ID = pro.PRO_ID
+    INNER JOIN T_H_PARTENAIRES_PAR as par ON par.PRO_ID = pro.PRO_ID`
+    , { model: Prospect})
+    .then(prospects => {
+        res.status(200).json({Prospects: prospects})
+    })
+    .catch(err => {
+        if (!err.statusCode) {
+            err.statusCode = 500;
+        }
+        next(err);
+    });
+}
+
 exports.createProspect = (req, res, next) => {
     const nom = req.body.PRO_NAME;
 

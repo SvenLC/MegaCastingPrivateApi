@@ -43,8 +43,8 @@ exports.getProspectFormated = (req, res, next) => {
     CLI_SIRET,
     PAR_LOGIN
     FROM T_E_PROSPECT_PRO as pro
-    INNER JOIN T_H_CLIENT_CLI as cli ON cli.PRO_ID = pro.PRO_ID
-    INNER JOIN T_H_PARTENAIRES_PAR as par ON par.PRO_ID = pro.PRO_ID`
+    FULL JOIN T_H_CLIENT_CLI as cli ON cli.PRO_ID = pro.PRO_ID
+    FULL JOIN T_H_PARTENAIRES_PAR as par ON par.PRO_ID = pro.PRO_ID`
     , { model: Prospect})
     .then(prospects => {
         res.status(200).json({Prospects: prospects})

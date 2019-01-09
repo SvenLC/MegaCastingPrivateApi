@@ -35,7 +35,7 @@ exports.login = (req, res, next) => {
                 login: loadedUser[0].UTI_LOGIN,
                 id: String(loadedUser[0].UTI_ID)
             }, 'BDB971EA6E6788317F359F23E86C5',
-                { expiresIn: '1h' }
+                { expiresIn: '12h' }
             );
             res.status(200).json({ UTI_ID: loadedUser[0].UTI_ID.toString(), UTI_TOKEN: token });
         })

@@ -38,7 +38,7 @@ app.use('/auth', authRoutes);
 app.use('/adresses', adresseRoutes);
 app.use('/contacts', contactRoutes);
 app.use('/contenus', contenuRoutes);
-app.use('/prospects', prospectRoutes);
+app.use('/prospects',isAuth, prospectRoutes);
 app.use('/clients', clientRoutes);
 app.use('/codePostaux', codePostalRoutes);
 app.use('/partenaires', partenaireRoutes);

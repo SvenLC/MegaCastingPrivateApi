@@ -37,14 +37,14 @@ exports.getProspect = (req, res, next) => {
 
 exports.getProspectFormated = (req, res, next) => {
     sequelize.query(`SELECT
-    pro.PRO_ID
-    PRO_NAME,
+    pro.PRO_ID,
+    pro.PRO_NAME,
     CLI_RNA,
     CLI_SIRET,
     PAR_LOGIN
     FROM T_E_PROSPECT_PRO as pro
-    FULL JOIN T_H_CLIENT_CLI as cli ON cli.PRO_ID = pro.PRO_ID
-    FULL JOIN T_H_PARTENAIRES_PAR as par ON par.PRO_ID = pro.PRO_ID`
+    LEFT JOIN T_H_CLIENT_CLI as cli ON cli.PRO_ID = pro.PRO_ID
+    LEFT JOIN T_H_PARTENAIRES_PAR as par ON par.PRO_ID = pro.PRO_ID`
     , { model: Prospect})
     .then(prospects => {
         res.status(200).json({Prospects: prospects})

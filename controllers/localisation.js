@@ -5,7 +5,9 @@ const Localisation = sequelize.import('../models/T_R_LOCALISATION_LOC');
 exports.getLocalisations = (req, res, next) => {
     Localisation.findAll()
         .then(localisations => {
-            res.status(200).json({Localisation: localisations});
+            res.status(200).json({
+                Localisation: localisations
+            });
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -24,7 +26,9 @@ exports.getLocalisation = (req, res, next) => {
                 error.statusCode = 404;
                 throw error;
             }
-            res.status(200).json({localisation: localisation});
+            res.status(200).json({
+                localisation: localisation
+            });
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -39,11 +43,13 @@ exports.createLocalisation = (req, res, next) => {
     const libelle = req.body.LOC_LIBELLE;
 
     Localisation.create({
-        LOC_LIBELLE: libelle
+            LOC_LIBELLE: libelle
 
-    })
+        })
         .then(localisation => {
-            res.status(201).json({localisation: localisation})
+            res.status(201).json({
+                localisation: localisation
+            })
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -67,7 +73,9 @@ exports.deleteLocalisation = (req, res, next) => {
             }
             return localisation.destroy();
         }).then(localisation => {
-            res.status(200).json({Localisation: localisation});
+            res.status(200).json({
+                Localisation: localisation
+            });
 
         })
         .catch(err => {
@@ -85,9 +93,7 @@ exports.updateLocalisation = (req, res, next) => {
     Localisation.findByPk(localisationId)
         .then(localisation => {
             if (!localisation) {
-                const error = new Error({
-                    message: 'Localisaton inexistante !'
-                });
+                const error = new Error('Localisaton inexistante !');
                 error.statusCode = 404;
                 throw error;
             }
@@ -95,7 +101,9 @@ exports.updateLocalisation = (req, res, next) => {
             localisation.LOC_LIBELLE = libelle;
             return localisation.save();
         }).then(localisation => {
-            res.status(200).json({Localisation: localisation});
+            res.status(200).json({
+                Localisation: localisation
+            });
 
         })
         .catch(err => {

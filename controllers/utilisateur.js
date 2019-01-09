@@ -161,7 +161,6 @@ exports.updateUtilisateur = (req, res, next) => {
             utilisateur.UTI_NOM = nom;
             utilisateur.UTI_PRENOM = prenom;
             utilisateur.UTI_LOGIN = login;
-            utilisateur.UTI_MDP = hashedPw;
             utilisateur.UTI_ADMINISTRATEUR = admin;
             return utilisateur.save();
         })

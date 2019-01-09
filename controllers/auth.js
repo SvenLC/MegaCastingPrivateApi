@@ -1,6 +1,9 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+
 const sequelize = require('../util/database');
+
+const secret = '85B8EF807F51D09FC54288EE2539B81D1CCA149A1BE5C081C0937DCCB4D91DAC';
 
 const User = sequelize.import('../models/T_S_UTILISATEUR_UTI');
 
@@ -8,7 +11,9 @@ exports.login = (req, res, next) => {
     const login = req.body.UTI_LOGIN;
     const password = req.body.UTI_MDP;
     let loadedUser;
-        
+    
+    console.log(login);
+    console.log(req.body);
     sequelize.query(`SELECT
         UTI_ID,
         UTI_LOGIN,
@@ -34,7 +39,7 @@ exports.login = (req, res, next) => {
             const token = jwt.sign({
                 login: loadedUser[0].UTI_LOGIN,
                 id: String(loadedUser[0].UTI_ID)
-            }, 'BDB971EA6E6788317F359F23E86C5',
+            }, secret,
                 { expiresIn: '12h' }
             );
             res.status(200).json({ UTI_ID: loadedUser[0].UTI_ID.toString(), UTI_TOKEN: token });

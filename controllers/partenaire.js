@@ -23,9 +23,7 @@ exports.getPartenaire = (req, res, next) => {
     Partenaire.findByPk(partenaireId)
         .then(partenaire => {
             if (!partenaire) {
-                const error = new Error({
-                    message: 'partenaire inexistant !'
-                });
+                const error = new Error('partenaire inexistant !');
                 error.statusCode = 404;
                 throw error;
             }
@@ -145,18 +143,16 @@ exports.deletePartenaire = (req, res, next) => {
     Partenaire.findByPk(partenaireId)
         .then(partenaire => {
             if (!partenaire) {
-                const error = new Error({
-                    message: 'partenaire inexistant !'
-                });
+                const error = new Error('partenaire inexistant !');
                 error.statusCode = 404;
                 throw error;
             }
             return partenaire.destroy();
-        }).then(partenaire => {
+        })
+        .then(partenaire => {
             res.status(200).json({
                 partenaire: partenaire
             });
-
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -174,9 +170,7 @@ exports.updatePartenaire = (req, res, next) => {
     Partenaire.findByPk(partenaireId)
         .then(partenaire => {
             if (!partenaire) {
-                const error = new Error({
-                    message: 'partenaire inexistant !'
-                });
+                const error = new Error('partenaire inexistant !');
                 error.statusCode = 404;
                 throw error;
             }

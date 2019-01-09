@@ -20,7 +20,7 @@ exports.getMetier = (req, res, next) => {
     Metier.findByPk(metierId)
         .then(metier => {
             if (!metier) {
-                const error = new Error({ message: 'Métier inexistant !' });
+                const error = new Error('Métier inexistant !');
                 error.statusCode = 404;
                 throw error;
             }
@@ -63,7 +63,7 @@ exports.deleteMetier = (req, res, next) => {
     Metier.findByPk(metierId)
         .then(metier => {
             if (!metier) {
-                const error = new Error({ message: 'Métier inexistant !' });
+                const error = new Error('Métier inexistant !');
                 error.statusCode = 404;
                 throw error;
             }
@@ -88,7 +88,7 @@ exports.updateMetier = (req, res, next) => {
     Metier.findByPk(metierId)
         .then(metier => {
             if (!metier) {
-                const error = new Error({ message: 'Métier inexistant !' });
+                const error = new Error('Métier inexistant !');
                 error.statusCode = 404;
                 throw error;
             }

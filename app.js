@@ -33,6 +33,7 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use('/', defaultRoutes);
 app.use('/auth', authRoutes);
 app.use('/adresses', adresseRoutes);
 app.use('/contacts', contactRoutes);
@@ -49,7 +50,7 @@ app.use('/offreCastings', offreRoutes);
 app.use('/statutJuridiques', statutJuridiqueRoutes);
 app.use('/utilisateurs', utilisateurRoutes);
 app.use('/contrats', contratRoutes);
-app.use('/', defaultRoutes);
+
 
 app.use((error, req, res, next) => {
     console.log(error);

@@ -23,9 +23,9 @@ exports.getClient = (req, res, next) => {
     Client.findByPk(clientId)
         .then(client => {
             if (!client) {
-                const error = new Error({
-                    message: 'Client inexistant !'
-                });
+                const error = new Error(
+                    'Client inexistant !'
+                );
                 error.statusCode = 404;
                 throw error;
             }
@@ -66,18 +66,17 @@ exports.createClient = (req, res, next) => {
                 }
             })
             .then(Client.create({
-                    PRO_ID: proId,
-                    CLI_SIRET: siret,
-                    CLI_RNA: rna,
-                    JUR_ID: jurId,
-                    ADR_ID: adrId
-                })
-            )
+                PRO_ID: proId,
+                CLI_SIRET: siret,
+                CLI_RNA: rna,
+                JUR_ID: jurId,
+                ADR_ID: adrId
+            }))
             .then(client => {
                 res.status(201).json({
                     client: client
                 });
-            })            
+            })
             .catch(err => {
                 if (!err.statusCode) {
                     err.statusCode = 500;
@@ -106,18 +105,16 @@ exports.deleteClient = (req, res, next) => {
     Client.findByPk(clientId)
         .then(client => {
             if (!client) {
-                const error = new Error({
-                    message: 'Client inexistant !'
-                });
+                const error = new Error('Client inexistant !');
                 error.statusCode = 404;
                 throw error;
             }
             return client.destroy();
-        }).then(client => {
+        })
+        .then(client => {
             res.status(200).json({
                 client: client
             });
-
         })
         .catch(err => {
             if (!err.statusCode) {
@@ -137,9 +134,7 @@ exports.updateClient = (req, res, next) => {
     Client.findByPk(clientId)
         .then(client => {
             if (!client) {
-                const error = new Error({
-                    message: 'Client inexistant !'
-                });
+                const error = new Error('Client inexistant !');
                 error.statusCode = 404;
                 throw error;
             }

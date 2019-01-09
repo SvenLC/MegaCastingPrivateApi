@@ -211,9 +211,7 @@ exports.updateOffre = (req, res, next) => {
     Offre.findByPk(offreId)
         .then(offre => {
             if (!offre) {
-                const error = new Error({
-                    message: 'Offre inexistante !'
-                });
+                const error = new Error('Offre inexistante !');
                 error.statusCode = 404;
                 throw error;
             }

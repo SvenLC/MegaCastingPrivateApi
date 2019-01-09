@@ -20,7 +20,7 @@ exports.getContenuType = (req, res, next) => {
     ContenuType.findByPk(ContenuTypeId)
         .then(contenuType => {
             if (!contenuType) {
-                const error = new Error({ message: 'type de contenu inexistante !' });
+                const error = new Error('type de contenu inexistante !');
                 error.statusCode = 404;
                 throw error;
             }
@@ -61,7 +61,7 @@ exports.deleteContenuType = (req, res, next) => {
     ContenuType.findByPk(ContenuTypeId)
         .then(contenuType => {
             if (!contenuType) {
-                const error = new Error({ message: 'Type de contenu inexistant !' });
+                const error = new Error('Type de contenu inexistant !');
                 error.statusCode = 404;
                 throw error;
             }
@@ -85,7 +85,7 @@ exports.updateContenuType = (req, res, next) => {
     ContenuType.findByPk(contenuTypeId)
         .then(contenuType => {
             if (!contenuType) {
-                const error = new Error({ message: 'Type de contenu inexistant !' });
+                const error = new Error( 'Type de contenu inexistant !');
                 error.statusCode = 404;
                 throw error;
             }

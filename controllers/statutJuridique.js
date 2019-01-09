@@ -20,7 +20,7 @@ exports.getStatutJuridique = (req, res, next) => {
     StatutJuridique.findByPk(statutJuridiqueId)
         .then(statutJuridique => {
             if (!statutJuridique) {
-                const error = new Error({ message: 'Statut juridique inexistant !' });
+                const error = new Error('Statut juridique inexistant !');
                 error.statusCode = 404;
                 throw error;
             }
@@ -62,7 +62,7 @@ exports.deleteStatutJuridique = (req, res, next) => {
     StatutJuridique.findByPk(statutJuridiqueId)
         .then(statutJuridique => {
             if (!statutJuridique) {
-                const error = new Error({ message: 'Statut juridique inexistant !' });
+                const error = new Error('Statut juridique inexistant !');
                 error.statusCode = 404;
                 throw error;
             }
@@ -86,7 +86,7 @@ exports.updateStatutJuridique = (req, res, next) => {
     StatutJuridique.findByPk(statutJuridiqueId)
         .then(statutJuridique => {
             if (!statutJuridique) {
-                const error = new Error({ message: 'Statut juridique inexistant !' });
+                const error = new Error('Statut juridique inexistant !');
                 error.statusCode = 404;
                 throw error;
             }

@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 
-const login = process.env.SQLCONNSTR_login;
-const mdp = process.env.SQLCONNSTR_mdp;
-const dataBase = process.env.SQLCONNSTR_dataBase;
+const login = process.env.SQLCONNSTR_login || 'adminmegacasting';
+const mdp = process.env.SQLCONNSTR_mdp || 't4tX38CwrHQJbDWkl2qr';
+const dataBase = process.env.SQLCONNSTR_dataBase || 'MEGACASTING';
 
 const sequelize = new Sequelize(dataBase, login, mdp, {
     host: 'megacasting.database.windows.net',

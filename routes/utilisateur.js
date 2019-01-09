@@ -24,20 +24,22 @@ router.post('/', [
     })
 ], utilisateurController.createUtilisateur);
 
-router.put('/:utilisateurId', [
-    body('UTI_MDP')
-    .trim()
-    .isLength({
-        min: 6
-    }),
-    body('UTI_LOGIN')
-    .trim()
-    .not()
-    .isEmpty()
-    .isLength({
-        min: 4
-    })
-], utilisateurController.updateUtilisateur);
+router.put('/:utilisateurId', 
+// [
+//     body('UTI_MDP')
+//     .trim()
+//     .isLength({
+//         min: 6
+//     }),
+//     body('UTI_LOGIN')
+//     .trim()
+//     .not()
+//     .isEmpty()
+//     .isLength({
+//         min: 4
+//     })
+// ],
+ utilisateurController.updateUtilisateur);
 
 router.put('/mdp/:utilisateurId' 
 // [

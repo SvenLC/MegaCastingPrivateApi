@@ -46,7 +46,7 @@ app.use('/typeContenus', typeContenuRoutes);
 app.use('/domaineMetiers', domaineMetierRoutes);
 app.use('/localisations', localisationRoutes)
 app.use('/metiers', metierRoutes);
-app.use('/offreCastings', offreRoutes);
+app.use('/offreCastings',isAuth, offreRoutes);
 app.use('/statutJuridiques', statutJuridiqueRoutes);
 app.use('/utilisateurs', utilisateurRoutes);
 app.use('/contrats', contratRoutes);

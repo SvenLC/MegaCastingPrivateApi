@@ -35,21 +35,21 @@ app.use((req, res, next) => {
 
 app.use('/', defaultRoutes);
 app.use('/auth', authRoutes);
-app.use('/adresses', adresseRoutes);
-app.use('/contacts', contactRoutes);
-app.use('/contenus', contenuRoutes);
-app.use('/prospects',isAuth, prospectRoutes);
-app.use('/clients', clientRoutes);
-app.use('/codePostaux', codePostalRoutes);
-app.use('/partenaires', partenaireRoutes);
-app.use('/typeContenus', typeContenuRoutes);
-app.use('/domaineMetiers', domaineMetierRoutes);
-app.use('/localisations', localisationRoutes)
-app.use('/metiers', metierRoutes);
-app.use('/offreCastings',isAuth, offreRoutes);
-app.use('/statutJuridiques', statutJuridiqueRoutes);
-app.use('/utilisateurs', utilisateurRoutes);
-app.use('/contrats', contratRoutes);
+app.use('/adresses', isAuth, adresseRoutes);
+app.use('/contacts', isAuth, contactRoutes);
+app.use('/contenus', isAuth, contenuRoutes);
+app.use('/prospects', isAuth, prospectRoutes);
+app.use('/clients', isAuth, clientRoutes);
+app.use('/codePostaux', isAuth, codePostalRoutes);
+app.use('/partenaires', isAuth, partenaireRoutes);
+app.use('/typeContenus', isAuth, typeContenuRoutes);
+app.use('/domaineMetiers', isAuth, domaineMetierRoutes);
+app.use('/localisations' ,isAuth, localisationRoutes)
+app.use('/metiers' ,isAuth, metierRoutes);
+app.use('/offreCastings', isAuth, offreRoutes);
+app.use('/statutJuridiques' ,isAuth, statutJuridiqueRoutes);
+app.use('/utilisateurs' ,isAuth, utilisateurRoutes);
+app.use('/contrats' ,isAuth, contratRoutes);
 
 
 app.use((error, req, res, next) => {

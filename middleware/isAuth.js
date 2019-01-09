@@ -1,16 +1,15 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
-    const domain = 'https://megacastingpublicapi.azurewebsites.net';
-    const local = 'http://localhost:3000';
-    const url = req.get('Origin');
-
-    if (url == domain || url == local) {
+    const autHeader = req.get('Authorization');
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6IkpHcmF5IiwiaWQiOiI1MiIsImlhdCI6MTU0NzAyOTY2NywiZXhwIjoxNTQ3MDcyODY3fQ.7D5YxdvDECxbM-iw87fpqaHafOth_HoJfSgfwBSgne0'
+    
+    if (autHeader.split(' ')[1] == token) {
 
         next();
 
     } else {
-        const autHeader = req.get('Authorization');
+        
         if (!autHeader) {
             const error = new Error('Non authentifié');
             error.statusCode = 401;

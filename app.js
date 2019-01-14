@@ -41,14 +41,14 @@ app.use('/contenus', isAuth, contenuRoutes);
 app.use('/prospects', isAuth, prospectRoutes);
 app.use('/clients', isAuth, clientRoutes);
 app.use('/codePostaux', isAuth, codePostalRoutes);
-app.use('/partenaires', isAuth, partenaireRoutes);
+app.use('/partenaires', partenaireRoutes);
 app.use('/typeContenus', isAuth, typeContenuRoutes);
 app.use('/domaineMetiers', isAuth, domaineMetierRoutes);
 app.use('/localisations' ,isAuth, localisationRoutes)
 app.use('/metiers' ,isAuth, metierRoutes);
 app.use('/offreCastings', isAuth, offreRoutes);
 app.use('/statutJuridiques' ,isAuth, statutJuridiqueRoutes);
-app.use('/utilisateurs' ,isAuth, utilisateurRoutes);
+app.use('/utilisateurs' , utilisateurRoutes);
 app.use('/contrats' ,isAuth, contratRoutes);
 
 

@@ -11,7 +11,7 @@ const sequelize = new Sequelize(dataBase, login, mdp, {
       encrypt: true,    
       },
     operatorsAliases: false,
-
+    
     pool: {
       max: 5,
       min: 0,

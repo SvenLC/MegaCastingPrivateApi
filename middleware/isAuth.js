@@ -5,22 +5,16 @@ module.exports = (req, res, next) => {
     const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6IkpHcmF5IiwiaWQiOiI1MiIsImlhdCI6MTU0NzAzMjY5MiwiZXhwIjoxNTQ3MDc1ODkyfQ._6CsUUIznN5BflzT7nrVvye34FMzNvpNgLd10Aw0iUE'
     const secret = '85B8EF807F51D09FC54288EE2539B81D1CCA149A1BE5C081C0937DCCB4D91DAC';
 
-    console.log(autHeader);
-    console.log(token);
-          
     if (!autHeader) {
         const error = new Error('Non authentifié');
         error.statusCode = 401;
         throw error;
     }
 
-    if (autHeader == token) {
-        console.log('ok !');
+    if (autHeader == token) {        
         next();
 
-    } else {       
-        console.log('pas ok !'); 
-      
+    } else {   
         const token = autHeader.split(' ')[1];
         let decodedToken;
         try {

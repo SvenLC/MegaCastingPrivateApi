@@ -11,9 +11,7 @@ exports.login = (req, res, next) => {
     const login = req.body.UTI_LOGIN;
     const password = req.body.UTI_MDP;
     let loadedUser;
-    
-    console.log(login);
-    console.log(req.body);
+
     sequelize.query(`SELECT
         UTI_ID,
         UTI_LOGIN,
